@@ -45,6 +45,27 @@ public class Especialista extends AbstractEntity {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
+	@Column(name = "e_domingo")
+	private boolean eDomingo;
+	
+	@Column(name = "e_segunda")
+	private boolean eSegunda;
+	
+	@Column(name = "e_terca")
+	private boolean eTerca;
+	
+	@Column(name = "e_quarta")
+	private boolean eQuarta;
+	
+	@Column(name = "e_quinta")
+	private boolean eQuinta;
+	
+	@Column(name = "e_sexta")
+	private boolean eSexta;
+	
+	@Column(name = "e_sabado")
+	private boolean eSabado;
+	
 	public Especialista() {
 		super();
 	}
@@ -104,4 +125,61 @@ public class Especialista extends AbstractEntity {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public boolean iseDomingo() {
+		return eDomingo;
+	}
+
+	public void seteDomingo(boolean eDomingo) {
+		this.eDomingo = eDomingo;
+	}
+
+	public boolean iseSegunda() {
+		return eSegunda;
+	}
+
+	public void seteSegunda(boolean eSegunda) {
+		this.eSegunda = eSegunda;
+	}
+
+	public boolean iseTerca() {
+		return eTerca;
+	}
+
+	public void seteTerca(boolean eTerca) {
+		this.eTerca = eTerca;
+	}
+
+	public boolean iseQuarta() {
+		return eQuarta;
+	}
+
+	public void seteQuarta(boolean eQuarta) {
+		this.eQuarta = eQuarta;
+	}
+
+	public boolean iseQuinta() {
+		return eQuinta;
+	}
+
+	public void seteQuinta(boolean eQuinta) {
+		this.eQuinta = eQuinta;
+	}
+
+	public boolean iseSexta() {
+		return eSexta;
+	}
+
+	public void seteSexta(boolean eSexta) {
+		this.eSexta = eSexta;
+	}
+
+	public boolean iseSabado() {
+		return eSabado;
+	}
+
+	public void seteSabado(boolean eSabado) {
+		this.eSabado = eSabado;
+	}
+	
 }

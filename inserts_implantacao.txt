@@ -1,0 +1,31 @@
+insert into usuarios(email,senha,ativo)values('fabiojofre@gmail.com','$2a$10$JIzo6BPySa9vCpN5nn5FO.qrI9Cq/a7xK7S1wbekNjb0CIP.XqVF2',true)
+
+
+insert into perfis(descricao)values('ADMIN');
+insert into perfis(descricao)values('ESPECIALISTA');
+insert into perfis(descricao)values('PESSOA');
+
+insert into usuarios_tem_perfis(usuario_id,perfil_id)values(1,1);
+
+insert into horas(hora_minuto) values('07:00:00');
+insert into horas(hora_minuto) values('07:30:00');
+insert into horas(hora_minuto) values('08:00:00');
+insert into horas(hora_minuto) values('08:30:00');
+insert into horas(hora_minuto) values('09:00:00');
+insert into horas(hora_minuto) values('09:30:00');
+insert into horas(hora_minuto) values('10:00:00');
+insert into horas(hora_minuto) values('10:30:00');
+insert into horas(hora_minuto) values('11:00:00');
+insert into horas(hora_minuto) values('11:30:00');
+insert into horas(hora_minuto) values('13:00:00');
+insert into horas(hora_minuto) values('13:30:00');
+insert into horas(hora_minuto) values('14:00:00');
+insert into horas(hora_minuto) values('14:30:00');
+insert into horas(hora_minuto) values('15:00:00');
+insert into horas(hora_minuto) values('15:30:00');
+insert into horas(hora_minuto) values('16:00:00');
+insert into horas(hora_minuto) values('16:30:00');
+insert into horas(hora_minuto) values('17:00:00');
+insert into horas(hora_minuto) values('17:30:00');
+
+

@@ -26,18 +26,18 @@ public class EmailService {
 				new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, "UTF-8");
 		
 		Context context = new Context();
-		context.setVariable("titulo", "Bem vindo a clínica Spring Security");
+		context.setVariable("titulo", "Bem vindo a Sector (Sistema de Gestão)");
 		context.setVariable("texto", "Precisamos que confirme seu cadastro, clicando no link abaixo");
 		context.setVariable("linkConfirmacao", 
-				"http://localhost:8080/u/confirmacao/cadastro?codigo=" + codigo);
+				"http://sebd.ddns.net:8084/u/confirmacao/cadastro?codigo=" + codigo);
 		
 		String html = template.process("email/confirmacao", context);
 		helper.setTo(destino);
 		helper.setText(html, true);
 		helper.setSubject("Confirmacao de Cadastro");
-		helper.setFrom("nao-responder@clinica.com.br");
+		helper.setFrom("nao-responder@sector.com.br");
 		
-		helper.addInline("logo", new ClassPathResource("/static/image/spring-security.png"));
+		helper.addInline("logo", new ClassPathResource("/static/image/ieadpe.png"));
 		
 		mailSender.send(message);
 	}
@@ -57,9 +57,9 @@ public class EmailService {
         helper.setTo(destino);
         helper.setText(html, true);
         helper.setSubject("Redefinição de Senha");
-        helper.setFrom("no-replay@clinica.com.br");
+        helper.setFrom("no-replay@sector.com.br");
 
-        helper.addInline("logo", new ClassPathResource("/static/image/spring-security.png"));  
+        helper.addInline("logo", new ClassPathResource("/static/image/ieadpe.png"));  
        
         mailSender.send(message);		
 	}

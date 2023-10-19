@@ -10,11 +10,11 @@
 		<main role="main">
 
 		<section class="jumbotron text-center">
-			<img class="d-block mx-auto" th:src="@{/image/ieadpespring-security.png}"
+			<img class="d-block mx-auto" th:src="@{/image/ieadpe.png}"
 				width="72" height="72">
 			<div class="container">
 				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
-				<p class="lead text-muted">Especialistas e Especialistas</p>
+				<p class="lead text-muted">Especialistas e Especialidades</p>
 			</div>
 		</section>
 
@@ -24,7 +24,7 @@
 				<div class="d-flex justify-content-center">
 					<div class="col-md-10">
 						<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
-						<h2>Consultas Agendadas</h2>
+						<h2>Agendamentos</h2>
 
 						<table id="table-pessoa-historico"
 							class="table table-sm table-striped table-bordered nowrap"
@@ -35,7 +35,7 @@
 									<th scope="col">Pessoa</th>
 									<th scope="col">Data da Consulta</th>
 									<th scope="col">Especialista</th>
-									<th scope="col">Especialidade</th>
+									<th scope="col">Assuntos</th>
 									<th scope="col">Editar</th>
 									<th scope="col">Exluir</th>
 								</tr>
