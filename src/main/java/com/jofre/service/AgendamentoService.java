@@ -75,6 +75,7 @@ public class AgendamentoService {
 		ag.setEspecialidade(agendamento.getEspecialidade());
 		ag.setHorario(agendamento.getHorario());
 		ag.setEspecialista(agendamento.getEspecialista());
+		ag.setFinalizado(agendamento.isFinalizado());
 				
 	}
 
@@ -124,4 +125,5 @@ public class AgendamentoService {
 		
 	}
 
+	
 }

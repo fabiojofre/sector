@@ -31,9 +31,6 @@ public class Pessoa extends AbstractEntity {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_congregacao")
-	private Congregacao congregacao;
 
 	public String getNome() {
 		return nome;

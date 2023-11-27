@@ -21,12 +21,12 @@ public class EspecialidadeService {
 
 	@Autowired
 	private EspecialidadeRepository repository;
+	
 	@Autowired
 	private Datatables datatables;
 
 	@Transactional(readOnly = false)
 	public void salvar(Especialidade especialidade) {
-		
 		repository.save(especialidade);
 	}
 
@@ -41,8 +41,7 @@ public class EspecialidadeService {
 	}
 
 	@Transactional(readOnly = true)
-	public Especialidade buscarPorId(Long id) {
-		
+	public Especialidade buscarPorId(Long id) {	
 		return repository.findById(id).get();
 	}
 
@@ -59,8 +58,7 @@ public class EspecialidadeService {
 	}
 
 	@Transactional(readOnly = true)
-	public Set<Especialidade> buscarPorTitulos(String[] titulos) {
-		
+	public Set<Especialidade> buscarPorTitulos(String[] titulos) {	
 		return repository.findByTitulos(titulos);
 	}
 

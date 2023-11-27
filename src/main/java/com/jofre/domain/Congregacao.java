@@ -1,31 +1,41 @@
 package com.jofre.domain;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "congregacao")
+@Table(name = "congregacoes", indexes = {@Index(name = "idx_congregacao_nome", columnList = "nome")})
 public class Congregacao extends AbstractEntity {
 	
-	@Column(name = "nome",  nullable = false)
+	@Column(name = "nome", unique = true,  nullable = false)
 	private String nome;
 	
-	@Column(name = "area",  nullable = false)
-	private int area;
+	@Column(name = "area")
+	private Integer area;
+	
+	@Column(name = "responsavel")
+	private String responsavel;
 	
 	@Column(name = "e_polo")
-	private boolean ePolo;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "congregacao")
-	private List<Pessoa> pessoas;
+	private Boolean ePolo;
+	
+	@Column(name = "dia_doutrina")
+	private Integer diaDoutrina;
+	
+	@Column(name = "dia_oracao_mocidade")
+	private Integer diaOracaoMocidade;
+	
+	@Column(name = "dia_discipulado")
+	private Integer diaDiscipulado;
+	
+	@Column(name = "semana_ceia")
+	private Integer semanaCeia;
+	
+	@Column(name = "ebd_sabado")
+	private Boolean ebdSabado;
 
 	public String getNome() {
 		return nome;
@@ -35,31 +45,71 @@ public class Congregacao extends AbstractEntity {
 		this.nome = nome;
 	}
 
-	public int getArea() {
+	public Integer getArea() {
 		return area;
 	}
 
-	public void setArea(int area) {
+	public void setArea(Integer area) {
 		this.area = area;
 	}
 
-	public boolean isePolo() {
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public Boolean getePolo() {
 		return ePolo;
 	}
 
-	public void setePolo(boolean ePolo) {
+	public void setePolo(Boolean ePolo) {
 		this.ePolo = ePolo;
 	}
 
-	public List<Pessoa> getPessoas() {
-		return pessoas;
+	public Integer getDiaDoutrina() {
+		return diaDoutrina;
 	}
 
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
+	public void setDiaDoutrina(Integer diaDoutrina) {
+		this.diaDoutrina = diaDoutrina;
+	}
+
+	public Integer getDiaOracaoMocidade() {
+		return diaOracaoMocidade;
+	}
+
+	public void setDiaOracaoMocidade(Integer diaOracaoMocidade) {
+		this.diaOracaoMocidade = diaOracaoMocidade;
+	}
+
+	public Integer getDiaDiscipulado() {
+		return diaDiscipulado;
+	}
+
+	public void setDiaDiscipulado(Integer diaDiscipulado) {
+		this.diaDiscipulado = diaDiscipulado;
+	}
+
+	public Integer getSemanaCeia() {
+		return semanaCeia;
+	}
+
+	public void setSemanaCeia(Integer semanaCeia) {
+		this.semanaCeia = semanaCeia;
+	}
+
+	public Boolean getEbdSabado() {
+		return ebdSabado;
+	}
+
+	public void setEbdSabado(Boolean ebdSabado) {
+		this.ebdSabado = ebdSabado;
 	}
 	
-	
-	
-	
+
+
+		
 }

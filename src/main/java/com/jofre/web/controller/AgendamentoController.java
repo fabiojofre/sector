@@ -122,7 +122,7 @@ public class AgendamentoController {
 		agendamento.setEspecialidade(especialidade);
 		
 		service.editar(agendamento, user.getUsername());
-		attr.addFlashAttribute("sucesso", "Sua consulta froi alterada com sucesso.");
+		attr.addFlashAttribute("sucesso", "Seu agendamento foi alterado com sucesso.");
 		return "redirect:/agendamentos/agendar";
 	}
 	
@@ -130,8 +130,18 @@ public class AgendamentoController {
 	@GetMapping("/excluir/consulta/{id}")
 	public String excluirConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
 		service.remover(id);
-		attr.addFlashAttribute("sucesso", "Consulta excluída com sucesso.");
+		attr.addFlashAttribute("sucesso", "Agendamento excluído com sucesso.");
 		return "redirect:/agendamentos/historico/pessoa";
 	}
-
+	
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@GetMapping("/finalizar/consulta/{id}")
+	public String finalizarConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
+		Agendamento agendamento = service.buscarPorId(id);
+		agendamento.setFinalizado(true);
+		service.salvar(agendamento);
+		attr.addFlashAttribute("sucesso", "Agendamento finalizado com sucesso.");
+		return "redirect:/agendamentos/historico/pessoa";
+	}
+	
 }

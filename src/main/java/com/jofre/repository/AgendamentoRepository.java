@@ -43,7 +43,9 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 			+ "a.especialista as especialista,"
 			+ "a.especialidade as especialidade "
 		+ "from Agendamento a "
-		+ "where a.especialista.usuario.email like :email")	
+		+ "where a.especialista.usuario.email like :email "
+		+ "and  (a.finalizado = false "
+		+ "or a.finalizado is null)")	
 	Page<HistoricoPessoa> findHistoricoByespecialistaEmail(String email, Pageable pageable);
 
 	@Query("select a from Agendamento a "
@@ -53,5 +55,4 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 			+ " (a.id = :id AND a.especialista.usuario.email like :email)")
 	Optional<Agendamento> findByIdAndPessoaOrespecialistaEmail(Long id, String email);
 
-	
 }

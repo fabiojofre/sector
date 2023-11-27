@@ -31,6 +31,18 @@ public class Agendamento extends AbstractEntity {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataConsulta;
 	
+	@Column(name = "finalizado")
+	private Boolean finalizado;
+
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+
 	public Especialidade getEspecialidade() {
 		return especialidade;
 	}

@@ -58,6 +58,9 @@ public class SecurityConfig {
 			.requestMatchers("/especialidades/titulo").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA)
 			.requestMatchers("/especialidades/**").hasAuthority(ADMIN)
 			
+			// acessos privados congregações
+			.requestMatchers("/congregacoes/**").hasAuthority(ADMIN)
+			
 			.anyRequest().authenticated()
 		)
 		.formLogin()
