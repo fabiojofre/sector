@@ -46,25 +46,25 @@ public class Especialista extends AbstractEntity {
 	private Usuario usuario;
 	
 	@Column(name = "e_domingo")
-	private boolean eDomingo;
+	private Boolean eDomingo;
 	
 	@Column(name = "e_segunda")
-	private boolean eSegunda;
+	private Boolean eSegunda;
 	
 	@Column(name = "e_terca")
-	private boolean eTerca;
+	private Boolean eTerca;
 	
 	@Column(name = "e_quarta")
-	private boolean eQuarta;
+	private Boolean eQuarta;
 	
 	@Column(name = "e_quinta")
-	private boolean eQuinta;
+	private Boolean eQuinta;
 	
 	@Column(name = "e_sexta")
-	private boolean eSexta;
+	private Boolean eSexta;
 	
 	@Column(name = "e_sabado")
-	private boolean eSabado;
+	private Boolean eSabado;
 	
 	public Especialista() {
 		super();
@@ -126,59 +126,59 @@ public class Especialista extends AbstractEntity {
 		this.usuario = usuario;
 	}
 
-	public boolean iseDomingo() {
+	public Boolean iseDomingo() {
 		return eDomingo;
 	}
 
-	public void seteDomingo(boolean eDomingo) {
+	public void seteDomingo(Boolean eDomingo) {
 		this.eDomingo = eDomingo;
 	}
 
-	public boolean iseSegunda() {
+	public Boolean iseSegunda() {
 		return eSegunda;
 	}
 
-	public void seteSegunda(boolean eSegunda) {
+	public void seteSegunda(Boolean eSegunda) {
 		this.eSegunda = eSegunda;
 	}
 
-	public boolean iseTerca() {
+	public Boolean iseTerca() {
 		return eTerca;
 	}
 
-	public void seteTerca(boolean eTerca) {
+	public void seteTerca(Boolean eTerca) {
 		this.eTerca = eTerca;
 	}
 
-	public boolean iseQuarta() {
+	public Boolean iseQuarta() {
 		return eQuarta;
 	}
 
-	public void seteQuarta(boolean eQuarta) {
+	public void seteQuarta(Boolean eQuarta) {
 		this.eQuarta = eQuarta;
 	}
 
-	public boolean iseQuinta() {
+	public Boolean iseQuinta() {
 		return eQuinta;
 	}
 
-	public void seteQuinta(boolean eQuinta) {
+	public void seteQuinta(Boolean eQuinta) {
 		this.eQuinta = eQuinta;
 	}
 
-	public boolean iseSexta() {
+	public Boolean iseSexta() {
 		return eSexta;
 	}
 
-	public void seteSexta(boolean eSexta) {
+	public void seteSexta(Boolean eSexta) {
 		this.eSexta = eSexta;
 	}
 
-	public boolean iseSabado() {
+	public Boolean iseSabado() {
 		return eSabado;
 	}
 
-	public void seteSabado(boolean eSabado) {
+	public void seteSabado(Boolean eSabado) {
 		this.eSabado = eSabado;
 	}
 	

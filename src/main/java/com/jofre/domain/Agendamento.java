@@ -35,11 +35,11 @@ public class Agendamento extends AbstractEntity {
 	private Boolean finalizado;
 
 
-	public boolean isFinalizado() {
+	public Boolean isFinalizado() {
 		return finalizado;
 	}
 
-	public void setFinalizado(boolean finalizado) {
+	public void setFinalizado(Boolean finalizado) {
 		this.finalizado = finalizado;
 	}
 

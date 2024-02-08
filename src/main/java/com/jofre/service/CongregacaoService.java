@@ -66,6 +66,22 @@ public class CongregacaoService {
 		return repository.findAll();
 	} 
 	
+
+	@Transactional(readOnly = true)
+	public List<Congregacao> buscarCongregacaoPorArea(Integer area) {
+		
+		return repository.findByCongregacaoPorArea(area);
+	}
+	
+	@Transactional(readOnly = true)
+	public Congregacao buscarCongregacaoPorNome(String nome) {
+		
+		return repository.findCongregacaoByNome(nome);
+	}
+
+	
+	} 
+	
 //	@Transactional(readOnly = true)
 //	public Map<String, Object> buscarEspecialidadesPorespecialista(Long id, HttpServletRequest request) {
 //		datatables.setRequest(request);
@@ -74,4 +90,4 @@ public class CongregacaoService {
 //		return datatables.getResponse(page);
 //	}
 	
-}
+//}

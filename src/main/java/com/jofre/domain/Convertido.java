@@ -1,23 +1,26 @@
 package com.jofre.domain;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-//@SuppressWarnings("serial")
-//@Entity
-//@Table(name = "covertidos", indexes = {@Index(name = "idx_congregacao_nome", columnList = "nome")})
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "convertidos")
 public class Convertido extends AbstractEntity{
 	
-	@Column(name = "nome", unique = true,  nullable = false)
+	@Column(name = "nome", unique = false,  nullable = false)
 	private String nome;
 	
 	@Column(name = "convertido")
 	private Boolean convertido;
+	
+	@Column(name = "inativo")
+	private Boolean inativo;
 	
 	@Column(name = "obs_conversao")
 	private String obsConversao;
@@ -28,32 +31,111 @@ public class Convertido extends AbstractEntity{
 	@Column(name = "endereco")
 	private String endereco;
 	
-	@Column(name = "matriculado")
-	private Boolean matriculado;
+	@Column(name="area")
+	private Integer area;
 	
-	@Column(name = "concluido")
-	private Boolean concluido;
-	
+	@ManyToOne
+	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
-	@Column(name = "estado_civil")
-	private String estadoCivil;
+	@ManyToOne
+	@JoinColumn(name="id_pessoa")
+	private Pessoa pessoa;
 	
 	@Column(name = "data_nascimento")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	@Column(name = "data_conversao")
-	private Date dataConversao;
+	private LocalDate dataConversao;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Boolean getConvertido() {
+		return convertido;
+	}
+
+	public void setConvertido(Boolean convertido) {
+		this.convertido = convertido;
+	}
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
+	}
+
+	public String getObsConversao() {
+		return obsConversao;
+	}
+
+	public void setObsConversao(String obsConversao) {
+		this.obsConversao = obsConversao;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public Congregacao getCongregacao() {
+		return congregacao;
+	}
+
+	public void setCongregacao(Congregacao congregacao) {
+		this.congregacao = congregacao;
+	}
+
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public LocalDate getDataConversao() {
+		return dataConversao;
+	}
+
+	public void setDataConversao(LocalDate dataConversao) {
+		this.dataConversao = dataConversao;
+	}
+
+	public Integer getArea() {
+		return area;
+	}
+
+	public void setArea(Integer area) {
+		this.area = area;
+	}
 	
-	@Column(name = "data_discipulado")
-	private Date dataDiscipulado;
-	
-	@Column(name = "Data_conclusao")
-	private Date DataConclusao;
-	
-	@Column(name = "obs_discipulado")
-	private String obsDiscipulado;
-	
-	private List<Integer>aulas;
 	
 }

@@ -39,6 +39,7 @@ public class SecurityConfig {
 			.requestMatchers("/u/novo/cadastro", "/u/cadastro/realizado", "/u/cadastro/pessoa/salvar").permitAll()
 			.requestMatchers("/u/confirmacao/cadastro").permitAll()
 			.requestMatchers("/u/p/**").permitAll()
+			.requestMatchers("/congregacoes/congregacao/area/**").permitAll()
 			
 			// acessos privados admin
 			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA)
@@ -52,6 +53,7 @@ public class SecurityConfig {
 
 			// acessos privados pessoas
 			.requestMatchers("/pessoas/**").hasAuthority(PESSOA)
+			.requestMatchers("/convertidos/**").hasAuthority(PESSOA)
 			
 			// acessos privados especialidades
 			.requestMatchers("/especialidades/datatables/server/especialista/*").hasAnyAuthority(ESPECIALISTA, ADMIN)
@@ -60,7 +62,6 @@ public class SecurityConfig {
 			
 			// acessos privados congregações
 			.requestMatchers("/congregacoes/**").hasAuthority(ADMIN)
-			
 			.anyRequest().authenticated()
 		)
 		.formLogin()

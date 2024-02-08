@@ -5,9 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
-//@SuppressWarnings("serial")
-//@Entity
-//@Table(name = "produtos", indexes = {@Index(name = "idx_produto_nome", columnList = "descricao")})
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "produtos", indexes = {@Index(name = "idx_produto_nome", columnList = "descricao")})
 public class Produto extends AbstractEntity {
 	
 	@Column(name = "descricao", unique = true,  nullable = false)
@@ -28,5 +28,64 @@ public class Produto extends AbstractEntity {
 	@Column(name = "controla_estoque")
 	private Boolean controlaEstoque;
 	
-	private Unidade unidade;
+	@Column(name = "unidade",nullable = false)
+	private String unidade;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Double getPrecoCompra() {
+		return precoCompra;
+	}
+
+	public void setPrecoCompra(Double precoCompra) {
+		this.precoCompra = precoCompra;
+	}
+
+	public Double getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Double estoque) {
+		this.estoque = estoque;
+	}
+
+	public Double getReservado() {
+		return reservado;
+	}
+
+	public void setReservado(Double reservado) {
+		this.reservado = reservado;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public Boolean getControlaEstoque() {
+		return controlaEstoque;
+	}
+
+	public void setControlaEstoque(Boolean controlaEstoque) {
+		this.controlaEstoque = controlaEstoque;
+	}
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+	
+	
 }

@@ -15,15 +15,19 @@ public interface CongregacaoRepository extends JpaRepository<Congregacao, Long> 
 	@Query("select c from Congregacao c where c.nome like :search%")
 	Page<Congregacao> findAllByNome(String search, Pageable pageable);
 
-	@Query("select c.nome from Congregacao c where c.nome like :termo%")
+	@Query("select c.nome from Congregacao c where c.nome like %:termo%")
 	List<String> findCongregacoesByTermo(String termo);
 
 	@Query("select c from Congregacao c where c.nome IN :nomes")
 	Set<Congregacao> findBynomes(String[] nomes);
 
-//	@Query("select c from Congregacao c "
-//			+ "join c.membros m "
-//			+ "where m.id = :id") 
-//	Page<Congregacao> findByIdMembro(Long id, Pageable pageable);
+	@Query("select c from Congregacao c "
+			+ "where area = :area "
+			+ "order by nome") 
+	List<Congregacao> findByCongregacaoPorArea(Integer area);
+
+	@Query("select c from Congregacao c where c.nome = :nome")
+	Congregacao findCongregacaoByNome(String nome);
+
 
 }

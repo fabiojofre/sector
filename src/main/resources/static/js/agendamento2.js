@@ -94,14 +94,14 @@ $(document).ready(function() {
         },
         columns : [
             {data : 'id'},
-            {data : 'especialidade.titulo'},
+            {data : 'pessoa.nome'},
             {data: 'dataConsulta', render:
                 function( dataConsulta ) {
                     return moment(dataConsulta).format('LLL');
                 }
             },
             {data : 'especialista.nome'},
-            {data : 'pessoa.nome'},
+            {data : 'especialidade.titulo'},
             {orderable : false,	data : 'id', "render" : function(id) {
                     return '<a class="btn btn-success btn-sm btn-block" href="/agendamentos/editar/consulta/'
                             + id + '" role="button"><i class="fas fa-edit"></i></a>';
