@@ -14,7 +14,7 @@ public class DatatablesColunas {
 	//novo
 	public static final String[] CARGOS = {"id", "nome","estilo"};
 	//novo
-	public static final String[] CONVERTIDOS = {"id","nome","convertido","inativo","obsConversao","telefone","endereco","congregacao","dataConversao"};
+	public static final String[] CONVERTIDOS = {"id","nome","convertido","inativo","obsConversao","telefone","endereco","congregacao.nome","pessoa.nome","pessoa.telefone","dataConversao"};
 	
 	public static final String[] DISCIPULADO = {"id","nome","obs_conversao","telefone","congregacao.nome", "aulas"};
 	
