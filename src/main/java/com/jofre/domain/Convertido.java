@@ -2,6 +2,8 @@ package com.jofre.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -34,10 +36,12 @@ public class Convertido extends AbstractEntity{
 	@Column(name="area")
 	private Integer area;
 	
+	
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
+
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;

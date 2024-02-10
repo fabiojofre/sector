@@ -1,8 +1,13 @@
 package com.jofre.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -36,6 +41,10 @@ public class Congregacao extends AbstractEntity {
 	
 	@Column(name = "ebd_sabado")
 	private Boolean ebdSabado;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "congregacao")
+	private List<Convertido> convertidos;
 
 	public String getNome() {
 		return nome;
@@ -107,6 +116,14 @@ public class Congregacao extends AbstractEntity {
 
 	public void setEbdSabado(Boolean ebdSabado) {
 		this.ebdSabado = ebdSabado;
+	}
+
+	public List<Convertido> getConvertidos() {
+		return convertidos;
+	}
+
+	public void setConvertidos(List<Convertido> convertidos) {
+		this.convertidos = convertidos;
 	}
 	
 

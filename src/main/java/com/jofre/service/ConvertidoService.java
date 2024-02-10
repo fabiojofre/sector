@@ -12,6 +12,7 @@ import com.jofre.datatables.Datatables;
 import com.jofre.datatables.DatatablesColunas;
 import com.jofre.domain.Convertido;
 import com.jofre.repository.ConvertidoRepository;
+import com.jofre.repository.projection.HistoricoConvertido;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -64,4 +65,36 @@ public class ConvertidoService {
 		repository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true)
+	public Map<String,Object> bucarHistoricoConvertidoPorPessoa(String email, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
+		Page<HistoricoConvertido>page = repository.findHistoricoConvertidoEmail(email,datatables.getPageable());
+	
+		return datatables.getResponse(page);
+	}
+
+	public List<Convertido> buscarConvertidoPorPessoa(Long pessoa) {
+		
+		return repository.findConvertidoByPessoa(pessoa);
+	}
+	
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

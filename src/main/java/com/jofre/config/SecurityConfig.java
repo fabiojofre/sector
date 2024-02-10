@@ -39,7 +39,9 @@ public class SecurityConfig {
 			.requestMatchers("/u/novo/cadastro", "/u/cadastro/realizado", "/u/cadastro/pessoa/salvar").permitAll()
 			.requestMatchers("/u/confirmacao/cadastro").permitAll()
 			.requestMatchers("/u/p/**").permitAll()
-			.requestMatchers("/congregacoes/congregacao/area/**").permitAll()
+			.requestMatchers("/congregacoes/**").permitAll()
+			.requestMatchers("/convertidos/**").permitAll()
+			.requestMatchers("").permitAll()
 			
 			// acessos privados admin
 			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA)

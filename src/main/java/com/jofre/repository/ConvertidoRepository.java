@@ -1,17 +1,14 @@
 package com.jofre.repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.jofre.domain.Congregacao;
 import com.jofre.domain.Convertido;
-import com.jofre.domain.Especialista;
+import com.jofre.repository.projection.HistoricoConvertido;
 
 public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 
@@ -23,7 +20,22 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	List<String> findConvertidosByTermo(String termo);
 
 	@Query("select c from Convertido c where c.congregacao.id = :id")
-	Page<Convertido> findByCongregacaoId(Long id, Pageable pageable); 
+	Page<Convertido> findByCongregacaoId(Long id, Pageable pageable);
+
+	@Query("select c.id as id, "
+			+ "c.nome as nome,"
+			+ "c.telefone as telefone, "
+			+ "c.dataConversao as dataConversao,"
+			+ "c.endereco as endereco,"
+			+ "c.congregacao as congregacao,"
+			+ "c.pessoa as pessoa "
+			+ "from Convertido c "
+			+ "where c.pessoa.usuario.email = :email")
+	Page<HistoricoConvertido> findHistoricoConvertidoEmail(String email, Pageable pageable);
+
+	
+	@Query("select c from Convertido c where c.pessoa.id = :pessoa")
+	List<Convertido> findConvertidoByPessoa(Long pessoa); 
 	
 	
 }

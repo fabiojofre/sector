@@ -24,7 +24,7 @@ public interface CongregacaoRepository extends JpaRepository<Congregacao, Long> 
 	@Query("select c from Congregacao c "
 			+ "where area = :area "
 			+ "order by nome") 
-	List<Congregacao> findByCongregacaoPorArea(Integer area);
+	Set<Congregacao> findByCongregacaoPorArea(Integer area);
 
 	@Query("select c from Congregacao c where c.nome = :nome")
 	Congregacao findCongregacaoByNome(String nome);

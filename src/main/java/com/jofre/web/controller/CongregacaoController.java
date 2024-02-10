@@ -57,12 +57,18 @@ public class CongregacaoController {
 		return "redirect:/congregacoes";
 	}
 	
-	@GetMapping("/titulo/{nome}")
-	public ResponseEntity<?> getCongregacoesPorTermo(@RequestParam("nome") String nome) {
-		List<String> congregacoes = service.buscarCongregacaoByTermo(nome);
+//	@GetMapping("/titulo/{nome}")
+//	public ResponseEntity<?> getCongregacoesPorTermo(@RequestParam("nome") String nome) {
+//		List<String> congregacoes = service.buscarCongregacaoByTermo(nome);
+//		return ResponseEntity.ok(congregacoes);
+//	}
+		
+	@GetMapping("/titulo")
+	public ResponseEntity<?> getCongregacoesPorTermo(@RequestParam("termo") String termo) {
+		List<String> congregacoes = service.buscarCongregacaoByTermo(termo);
 		return ResponseEntity.ok(congregacoes);
 	}
-		
+	
 	@GetMapping("/congregacao/area/{area}")
 	public ResponseEntity<?>getCongregacaoPorArea(@PathVariable("area") Integer area){
 		return ResponseEntity.ok(service.buscarCongregacaoPorArea(area));

@@ -68,7 +68,7 @@ public class CongregacaoService {
 	
 
 	@Transactional(readOnly = true)
-	public List<Congregacao> buscarCongregacaoPorArea(Integer area) {
+	public Set<Congregacao> buscarCongregacaoPorArea(Integer area) {
 		
 		return repository.findByCongregacaoPorArea(area);
 	}

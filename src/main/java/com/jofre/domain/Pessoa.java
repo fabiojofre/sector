@@ -27,6 +27,10 @@ public class Pessoa extends AbstractEntity {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Agendamento> agendamentos;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pessoa")
+	private List<Convertido> convertidos;
+	
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
@@ -54,6 +58,23 @@ public class Pessoa extends AbstractEntity {
 
 	public void setAgendamentos(List<Agendamento> agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+	
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public List<Convertido> getConvertidos() {
+		return convertidos;
+	}
+
+	public void setConvertidos(List<Convertido> convertidos) {
+		this.convertidos = convertidos;
 	}
 
 	public Usuario getUsuario() {
