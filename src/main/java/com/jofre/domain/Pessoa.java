@@ -31,10 +31,34 @@ public class Pessoa extends AbstractEntity {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Convertido> convertidos;
 	
+
+	@ManyToOne
+	@JoinColumn(name= "id_congregacao")
+	private Congregacao congregacao;
+	
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
+	@Column(name = "area")
+	private Integer area;
+	
+	
+	public Integer getArea() {
+		return area;
+	}
+
+	public void setArea(Integer area) {
+		this.area = area;
+	}
+
+	public Congregacao getCongregacao() {
+		return congregacao;
+	}
+
+	public void setCongregacao(Congregacao congregacao) {
+		this.congregacao = congregacao;
+	}
 
 	public String getNome() {
 		return nome;

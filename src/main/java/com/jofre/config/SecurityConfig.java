@@ -28,6 +28,7 @@ public class SecurityConfig {
 	private static final String ADMIN = PerfilTipo.ADMIN.getDesc();
     private static final String ESPECIALISTA = PerfilTipo.ESPECIALISTA.getDesc();
     private static final String PESSOA = PerfilTipo.PESSOA.getDesc();
+    private static final String DISCIPULADO = PerfilTipo.DISCIPULADO.getDesc();
 	 
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -41,7 +42,6 @@ public class SecurityConfig {
 			.requestMatchers("/u/p/**").permitAll()
 			.requestMatchers("/congregacoes/**").permitAll()
 			.requestMatchers("/convertidos/**").permitAll()
-			.requestMatchers("").permitAll()
 			
 			// acessos privados admin
 			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA)
@@ -54,8 +54,10 @@ public class SecurityConfig {
 //			.requestMatchers("/agendamentos/**").hasAuthority(ESPECIALISTA)
 
 			// acessos privados pessoas
-			.requestMatchers("/pessoas/**").hasAuthority(PESSOA)
-			.requestMatchers("/convertidos/**").hasAuthority(PESSOA)
+			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO)
+			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO)
+			
+			.requestMatchers("/convertidos/**").hasAuthority(DISCIPULADO)
 			
 			// acessos privados especialidades
 			.requestMatchers("/especialidades/datatables/server/especialista/*").hasAnyAuthority(ESPECIALISTA, ADMIN)

@@ -1,6 +1,7 @@
 package com.jofre.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,10 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 
 	
 	@Query("select c from Convertido c where c.pessoa.id = :pessoa")
-	List<Convertido> findConvertidoByPessoa(Long pessoa); 
+	List<Convertido> findConvertidoByPessoa(Long pessoa);
+
+	@Query("select c from Convertido c where c.id = :id AND c.pessoa.usuario.email like :email ")
+	Optional<Convertido> findByIdAndPessoaEmail(Long id, String email); 
 	
 	
 }

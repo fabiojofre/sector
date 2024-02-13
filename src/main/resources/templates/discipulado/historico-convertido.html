@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+
+		<section class="jumbotron text-center">
+			<img class="d-block mx-auto" th:src="@{/image/ieadpe.png}"
+				width="72" height="72">
+			<div class="container">
+				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
+				<p class="lead text-muted">Hitórico de Convertidos</p>
+			</div>
+		</section>
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+
+				<div class="d-flex justify-content-center">
+					<div class="col-md-10">
+						<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
+						<h2>Convertidos</h2>
+
+						<table id="table-convertido-historico"
+							class="table table-sm table-striped table-bordered nowrap"
+							style="width: 100%">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">nome</th>
+									<th scope="col">Telefone</th>
+									<th scope="col">Data da Conversão</th>
+									<th scope="col">Endereço</th>
+									<th scope="col">Congregação</th>
+									<th scope="col">Usuário</th>
+									<th scope="col">Telefone Usuário</th>		
+									<th scope="col">Editar</th>
+									<th scope="col">Exluir</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</main>
+		
+	</section>
+	<script
+		th:src="@{/js/convertido.js(v=${version})}"
+		th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>

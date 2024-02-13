@@ -29,6 +29,10 @@ public class PessoaService {
 	public void editar(Pessoa pessoa) {
 		Pessoa p2 = repository.findById(pessoa.getId()).get();
 		p2.setNome(pessoa.getNome());
-		p2.setDtNascimento(pessoa.getDtNascimento());		
+		p2.setDtNascimento(pessoa.getDtNascimento());	
+		p2.setArea(pessoa.getArea());
+		p2.setCongregacao(pessoa.getCongregacao());
+		p2.setTelefone(pessoa.getTelefone());
+		p2.setDtNascimento(pessoa.getDtNascimento());
 	}
 }

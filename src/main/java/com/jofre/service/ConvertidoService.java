@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jofre.datatables.Datatables;
 import com.jofre.datatables.DatatablesColunas;
 import com.jofre.domain.Convertido;
+import com.jofre.exception.AcessoNegadoException;
 import com.jofre.repository.ConvertidoRepository;
 import com.jofre.repository.projection.HistoricoConvertido;
 
@@ -47,8 +48,8 @@ public class ConvertidoService {
 	}
 	
 	@Transactional(readOnly = false)
-	public void editar(Convertido convertido) {
-		Convertido co = repository.findById(convertido.getId()).get();
+	public void editar(Convertido convertido, String email) {
+		Convertido co = buscarPorIdEUsuario(convertido.getId(),email);
 		co.setNome(convertido.getNome());
 		co.setConvertido(convertido.getConvertido());
 		co.setInativo(convertido.getInativo());
@@ -57,8 +58,15 @@ public class ConvertidoService {
 		co.setEndereco(convertido.getEndereco());
 		co.setCongregacao(convertido.getCongregacao());
 		co.setDataNascimento(convertido.getDataNascimento());
+		co.setDataConversao(convertido.getDataConversao());
 	}
-
+	
+	@Transactional(readOnly = true)
+	public Convertido buscarPorIdEUsuario(Long id, String email) {
+		return repository
+				.findByIdAndPessoaEmail(id, email)
+				.orElseThrow(() -> new AcessoNegadoException("Acesso negado ao usuário: " + email));
+	}
 	
 	@Transactional(readOnly = false)
 	public void remover(Long id) {
@@ -78,6 +86,9 @@ public class ConvertidoService {
 		
 		return repository.findConvertidoByPessoa(pessoa);
 	}
+
+
+
 	
 	
 

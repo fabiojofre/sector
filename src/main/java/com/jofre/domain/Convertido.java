@@ -2,6 +2,9 @@ package com.jofre.domain;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -47,9 +50,11 @@ public class Convertido extends AbstractEntity{
 	private Pessoa pessoa;
 	
 	@Column(name = "data_nascimento")
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
 	
 	@Column(name = "data_conversao")
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataConversao;
 
 	public String getNome() {

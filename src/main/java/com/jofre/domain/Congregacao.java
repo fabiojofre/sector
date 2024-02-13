@@ -45,6 +45,19 @@ public class Congregacao extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "congregacao")
 	private List<Convertido> convertidos;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "congregacao")
+	private List<Pessoa> pessoas;
+
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
 
 	public String getNome() {
 		return nome;

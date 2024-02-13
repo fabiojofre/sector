@@ -4,6 +4,7 @@ insert into usuarios(email,senha,ativo)values('fabiojofre@gmail.com','$2a$10$JIz
 insert into perfis(descricao)values('ADMIN');
 insert into perfis(descricao)values('ESPECIALISTA');
 insert into perfis(descricao)values('PESSOA');
+insert into perfis(descricao) values('DISCIPULADO');
 
 insert into usuarios_tem_perfis(usuario_id,perfil_id)values(1,1);
 

@@ -8,13 +8,17 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jofre.domain.Agendamento;
 import com.jofre.domain.Congregacao;
 import com.jofre.domain.Convertido;
+import com.jofre.domain.Especialidade;
 import com.jofre.domain.PerfilTipo;
 import com.jofre.domain.Pessoa;
 import com.jofre.service.CongregacaoService;
@@ -29,27 +33,27 @@ public class ConvertidoController {
 
 	@Autowired
 	private ConvertidoService service;
-
 	@Autowired
 	private PessoaService pessoaService;
-
 	@Autowired
 	private CongregacaoService congregacaoService;
-
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
 	@GetMapping({ "", "/" })
 	public String abrir(Convertido convertido) {
 
 		return "convertido/convertido";
 
 	}
-	@PostMapping({  "/salvar" })
+
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PostMapping({ "/salvar" })
 	public String salvar(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
 		Long id_congreg = convertido.getCongregacao().getId();
 		Congregacao congregacao = congregacaoService.buscarPorId(id_congreg);
-		
-		System.out.println("O nome da congregacao é :"+convertido.getCongregacao().toString());
+
+//		System.out.println("O nome da congregacao é :"+convertido.getCongregacao().toString());
 		convertido.setCongregacao(congregacao);
 		convertido.setPessoa(pessoa);
 		convertido.setConvertido(true);
@@ -58,34 +62,62 @@ public class ConvertidoController {
 		return "redirect:/convertidos/";
 
 	}
-	// abrir sistórico de convertidos
+
+	// abrir histórico de convertidos
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
 	@GetMapping("/historico/convertido")
 	public String historico() {
-		
+
 		return "convertido/historico-convertido";
 	}
-	
-	//localizar histórico de convertido por pessoa
+
+	// localizar histórico de convertido por pessoa
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
 	@GetMapping("/datatables/server/historico")
 	public ResponseEntity<?> historicoConvertidoPorEmail(HttpServletRequest request,
-												@AuthenticationPrincipal User user ){
+			@AuthenticationPrincipal User user) {
 		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.PESSOA.getDesc()))) {
-			
-			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorPessoa(user.getUsername(),request));
+
+			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorPessoa(user.getUsername(), request));
 		}
 		return ResponseEntity.badRequest().build();
 	}
-//	
-//	@GetMapping("/datatebles/server")
-//	public ResponseEntity<?>buscarConvertidoPorPessoa(@PathVariable("pssoa") Long pessoa,@AuthenticationPrincipal User user ){
-//		 pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername()).getId();
-//		return ResponseEntity.ok(service.buscarConvertidoPorPessoa(pessoa));
-//	}
-//	
 	
+	// localizar convertido pelo id e envia-lo para a pagina de cadastro
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@GetMapping("/editar/convertido/{id}")
+		public String preEditarcConvertidoPessoa(@PathVariable("id") Long id, ModelMap model,
+				@AuthenticationPrincipal User user) {
+
+			Convertido convertido = service.buscarPorIdEUsuario(id,user.getUsername());
+			convertido.setArea(null);
+				System.out.println(" O ID do convertido é: -> "+ convertido.getId());
+			model.addAttribute("convertido", convertido);
+			return "convertido/convertido";
+		}
+
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PostMapping("/editar")
+		public String editarConvertido(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
+			System.out.println("Já nesse caso, o id desse método é: "+convertido.getId());
+			Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
+			Long id_congreg = convertido.getCongregacao().getId();
+			Congregacao congregacao = congregacaoService.buscarPorId(id_congreg);
+			convertido.setPessoa(pessoa);
+			convertido.setCongregacao(congregacao);
+			service.editar(convertido,user.getUsername());
+			
+			attr.addFlashAttribute("sucesso", "Seu convertido foi alterado com sucesso.");
+			return "redirect:/convertidos/historico/convertido";
+		}
+
+		@PreAuthorize("hasAuthority('PESSOA')")
+		@GetMapping("/excluir/convertido/{id}")
+		public String excluirConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
+			service.remover(id);
+			attr.addFlashAttribute("sucesso", "Convertido excluído com sucesso.");
+			return "redirect:/convertidos/historico/convertido";
+		}
+
+
 }
-
-
-
-

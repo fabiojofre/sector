@@ -31,101 +31,98 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("agendamentos")
 public class AgendamentoController {
-	
+
 	@Autowired
 	private AgendamentoService service;
 	@Autowired
 	private PessoaService pessoaService;
 	@Autowired
-	private EspecialidadeService especialidadeService;	
+	private EspecialidadeService especialidadeService;
 
-	// abre a pagina de agendamento de consultas 
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
-	@GetMapping({"/agendar"})
+	// abre a pagina de agendamento de consultas
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA', 'DISCIPULADO')")
+	@GetMapping({ "/agendar" })
 	public String agendarConsulta(Agendamento agendamento) {
 
-		return "agendamento/cadastro";		
+		return "agendamento/cadastro";
 	}
-	
+
 	// busca os horarios livres, ou seja, sem agendamento
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
 	@GetMapping("/horario/especialista/{id}/data/{data}")
 	public ResponseEntity<?> getHorarios(@PathVariable("id") Long id,
-						@PathVariable("data") @DateTimeFormat(iso = ISO.DATE) LocalDate data) {
+			@PathVariable("data") @DateTimeFormat(iso = ISO.DATE) LocalDate data) {
 
 		return ResponseEntity.ok(service.buscarHorariosNaoAgendadosPorespecialistaIdEData(id, data));
 	}
-	
+
 	// salvar um consulta agendada
 	@PreAuthorize("hasAuthority('PESSOA')")
-	@PostMapping({"/salvar"})
+	@PostMapping({ "/salvar" })
 	public String salvar(@AuthenticationPrincipal User user, RedirectAttributes attr, Agendamento agendamento) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
 		String titulo = agendamento.getEspecialidade().getTitulo();
-		Especialidade especialidade = especialidadeService
-				.buscarPorTitulos(new String[] {titulo})
-				.stream().findFirst().get();
+		Especialidade especialidade = especialidadeService.buscarPorTitulos(new String[] { titulo }).stream()
+				.findFirst().get();
 		agendamento.setEspecialidade(especialidade);
 		agendamento.setPessoa(pessoa);
 		service.salvar(agendamento);
 		attr.addFlashAttribute("sucesso", "Sua consulta foi agendada com sucesso.");
-		return "redirect:/agendamentos/agendar";		
+		return "redirect:/agendamentos/agendar";
 	}
-	
+
 	// abrir pagina de historico de agendamento do pessoa
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
-	@GetMapping({"/historico/pessoa", "/historico/consultas"})
+	@GetMapping({ "/historico/pessoa", "/historico/consultas" })
 	public String historico() {
 
 		return "agendamento/historico-pessoa";
 	}
-	
+
 	// localizar o historico de agendamentos por usuario logado
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
 	@GetMapping("/datatables/server/historico")
-	public ResponseEntity<?> historicoAgendamentosPorPessoa(HttpServletRequest request, 
-															  @AuthenticationPrincipal User user) {
-		
+	public ResponseEntity<?> historicoAgendamentosPorPessoa(HttpServletRequest request,
+			@AuthenticationPrincipal User user) {
+
 		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.PESSOA.getDesc()))) {
-			
+
 			return ResponseEntity.ok(service.buscarHistoricoPorPessoaEmail(user.getUsername(), request));
 		}
-		
+
 		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ESPECIALISTA.getDesc()))) {
-			
+
 			return ResponseEntity.ok(service.buscarHistoricoPorespecialistaEmail(user.getUsername(), request));
-		}		
-		
+		}
+
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	// localizar agendamento pelo id e envia-lo para a pagina de cadastro
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
-	@GetMapping("/editar/consulta/{id}") 
-	public String preEditarConsultaPessoa(@PathVariable("id") Long id, 
-										    ModelMap model, @AuthenticationPrincipal User user) {
-		
+	@GetMapping("/editar/consulta/{id}")
+	public String preEditarConsultaPessoa(@PathVariable("id") Long id, ModelMap model,
+			@AuthenticationPrincipal User user) {
+
 		Agendamento agendamento = service.buscarPorIdEUsuario(id, user.getUsername());
-		
+
 		model.addAttribute("agendamento", agendamento);
 		return "agendamento/cadastro";
 	}
-	
+
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
 	@PostMapping("/editar")
-	public String editarConsulta(Agendamento agendamento, 
-						         RedirectAttributes attr, @AuthenticationPrincipal User user) {
+	public String editarConsulta(Agendamento agendamento, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		String titulo = agendamento.getEspecialidade().getTitulo();
-		Especialidade especialidade = especialidadeService
-				.buscarPorTitulos(new String[] {titulo})
-				.stream().findFirst().get();
+		Especialidade especialidade = especialidadeService.buscarPorTitulos(new String[] { titulo }).stream()
+				.findFirst().get();
 		agendamento.setEspecialidade(especialidade);
-		
+
 		service.editar(agendamento, user.getUsername());
 		attr.addFlashAttribute("sucesso", "Seu agendamento foi alterado com sucesso.");
 		return "redirect:/agendamentos/agendar";
 	}
-	
+
 	@PreAuthorize("hasAuthority('PESSOA')")
 	@GetMapping("/excluir/consulta/{id}")
 	public String excluirConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
@@ -133,7 +130,7 @@ public class AgendamentoController {
 		attr.addFlashAttribute("sucesso", "Agendamento excluído com sucesso.");
 		return "redirect:/agendamentos/historico/pessoa";
 	}
-	
+
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
 	@GetMapping("/finalizar/consulta/{id}")
 	public String finalizarConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
@@ -143,5 +140,5 @@ public class AgendamentoController {
 		attr.addFlashAttribute("sucesso", "Agendamento finalizado com sucesso.");
 		return "redirect:/agendamentos/historico/pessoa";
 	}
-	
+
 }

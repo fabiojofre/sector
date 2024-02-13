@@ -48,7 +48,41 @@
 									<div class="invalid-feedback">Data de nascimento é requerida.</div>
 								</div>
 							</div>
+							<div class="mb-3">
+								<label for="nome">Telefone</label>
+								<div class="input-group">
+									<input type="tel" class="form-control" id="telefone" placeholder="insira seu telefone"
+											aria-describedby="validationTooltipUsernamePrepend"
+										    th:field="*{telefone}" required />
+									<div class="invalid-feedback">Telefone é requerido.</div>
+								</div>
+							</div>
 
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Selecione 
+										a área referente as congregações.</small>
+									<input type="number" class="form-control"
+										id="area" placeholder="Area..."
+										th:field="*{area}" required min="1" max="12" />
+									<div class="invalid-feedback">
+								      Área é obrigatória.
+								    </div>
+								</div>
+							</div>
+	
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<div class="card">
+									  <div class="card-header">
+									    Indique a congregação
+									  </div>
+									  <div class="card-body" id="congregacoes">										  									    
+											<!-- options by jQuery -->
+									  </div>									  							  
+									</div>
+								</div>
+							</div>
 							<div class="mb-3">
 								<label for="email">Email</label>
 								<div class="input-group">
@@ -89,7 +123,25 @@
 		</main>
 
 	</section>
-	<script	th:src="~{}" th:fragment="js"></script>
-	<script th:inline="javascript" th:fragment="inlinescript"></script>
+	<script	th:src="@{/js/pessoa.js(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript">
+	// buscar o especialista pela especialidade
+	/*[# th:if="${pessoa.congregacao != null}" ]*/
+		$( document ).ready(function() {
+			var id = [['${pessoa.congregacao.id}']];
+			var nome = [('${#strings.concat(,pessoa.congregacao.nome,)}')];
+			$.get( "/congregacoes/titulo/" + titulo, function( result ) {
+				$.each(result, function (k, v) {
+					$("#congregacoes").append(
+						 '<div class="custom-control custom-radio">'
+						+  '<input class="custom-control-input" type="radio" id="customRadio'+ k +'" name="congregacao.id" value="'+ v.id +'" required '+ (v.id == id ? "checked" : "")+' />'
+						+  '<label class="custom-control-label" for="customRadio'+ k +'">'+ v.nome +'</label>'
+						+'</div>'
+					);
+				});
+			});
+		});
+	/*[/]*/
+	</script>
 </body>
 </html>

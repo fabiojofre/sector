@@ -1,10 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 
-</html><!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
-	  layout:decorate="~{layout}">
 <head>
-<meta charset="UTF-8" />
+	<meta charset="UTF-8" />
 </head>
+
 <body>
 
 	<section class="layout-content" layout:fragment="corpo">
@@ -35,7 +35,7 @@
 							<div class="mb-3">
 								<label for="nome">Nome Completo</label>
 								<div class="input-group">
-									<input type="text" class="form-control" id="nome" placeholder="insira seu nome completo"
+									<input type="text" class="form-control" id="nome" placeholder="insira o nome completo"
 											aria-describedby="validationTooltipUsernamePrepend"
 										    th:field="*{nome}" required />
 									<div class="invalid-feedback">Nome é requerido.</div>
@@ -80,7 +80,7 @@
 									  <div class="card-header">
 									    Indique a congregação
 									  </div>
-									  <div class="card-body" id="congregacoes">										  									    
+									  <div class="card-body" id="congregacoes" required>										  									    
 											<!-- options by jQuery -->
 									  </div>									  							  
 									</div>
