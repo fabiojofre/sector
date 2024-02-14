@@ -22,14 +22,13 @@ public class ConvertidoService {
 
 	@Autowired
 	private ConvertidoRepository repository;
-	
+
 	@Autowired
 	private Datatables datatables;
-	
-	
+
 	@Transactional(readOnly = false)
 	public void salvar(Convertido convertido) {
-		
+
 		repository.save(convertido);
 	}
 
@@ -37,19 +36,20 @@ public class ConvertidoService {
 	public Map<String, Object> buscarConvertidos(HttpServletRequest request) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
-		Page<?> page = datatables.getSearch().isEmpty()
-				? repository.findAll(datatables.getPageable())
+		Page<?> page = datatables.getSearch().isEmpty() ? repository.findAll(datatables.getPageable())
 				: repository.findAllByNome(datatables.getSearch(), datatables.getPageable());
 		return datatables.getResponse(page);
 	}
+
 	@Transactional(readOnly = true)
 	public Convertido buscarPorId(Long id) {
 		return repository.findById(id).get();
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void editar(Convertido convertido, String email) {
-		Convertido co = buscarPorIdEUsuario(convertido.getId(),email);
+		Convertido co = buscarPorIdEUsuario(convertido.getId(), email);
+		co.setArea(convertido.getArea());
 		co.setNome(convertido.getNome());
 		co.setConvertido(convertido.getConvertido());
 		co.setInativo(convertido.getInativo());
@@ -60,52 +60,46 @@ public class ConvertidoService {
 		co.setDataNascimento(convertido.getDataNascimento());
 		co.setDataConversao(convertido.getDataConversao());
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Convertido buscarPorIdEUsuario(Long id, String email) {
-		return repository
-				.findByIdAndPessoaEmail(id, email)
+		return repository.findByIdAndPessoaEmail(id, email)
 				.orElseThrow(() -> new AcessoNegadoException("Acesso negado ao usuário: " + email));
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void remover(Long id) {
 		repository.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
-	public Map<String,Object> bucarHistoricoConvertidoPorPessoa(String email, HttpServletRequest request) {
+	public Map<String, Object> bucarHistoricoConvertidoPorPessoa(String email, HttpServletRequest request) {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
-		Page<HistoricoConvertido>page = repository.findHistoricoConvertidoEmail(email,datatables.getPageable());
-	
+		Page<HistoricoConvertido> page = repository.findHistoricoConvertidoEmail(email, datatables.getPageable());
+
 		return datatables.getResponse(page);
 	}
 
 	public List<Convertido> buscarConvertidoPorPessoa(Long pessoa) {
-		
+
 		return repository.findConvertidoByPessoa(pessoa);
 	}
 
+	public Map<String, Object> bucarHistoricoConvertidoPorCongregacao(Long congregacao, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
+		Page<HistoricoConvertido> page = repository.findHistoricoConvertidoCongregacao(congregacao,
+				datatables.getPageable());
+		return datatables.getResponse(page);
+	}
 
-
-	
-	
+	public Map<String, Object> bucarHistoricoMatriculadoPorCongregacao(Long congregacao, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
+		Page<HistoricoConvertido> page = repository.findHistoricoMatriculadoCongregacao(congregacao,
+				datatables.getPageable());
+		return datatables.getResponse(page);
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

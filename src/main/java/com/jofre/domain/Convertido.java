@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -38,13 +36,31 @@ public class Convertido extends AbstractEntity{
 	
 	@Column(name="area")
 	private Integer area;
+
+	@Column(name="da_uniao")
+	private Boolean daUniao;
 	
+	@Column(name="matriculado")
+	private Boolean matriculado;
+	
+	@Column(name="concluinte")
+	private Boolean concluinte;
+	
+	@Column(name="batismo")
+	private Boolean batismo;
+	
+	@Column(name = "data_conclusao")
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dataConclusao;
 	
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
-
+	@ManyToOne
+	@JoinColumn(name= "id_estadocivil")
+	private EstadoCivil estadocivil;
+	
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
@@ -144,6 +160,54 @@ public class Convertido extends AbstractEntity{
 
 	public void setArea(Integer area) {
 		this.area = area;
+	}
+
+	public Boolean getDaUniao() {
+		return daUniao;
+	}
+
+	public void setDaUniao(Boolean daUniao) {
+		this.daUniao = daUniao;
+	}
+
+	public Boolean getMatriculado() {
+		return matriculado;
+	}
+
+	public void setMatriculado(Boolean matriculado) {
+		this.matriculado = matriculado;
+	}
+
+	public Boolean getConcluinte() {
+		return concluinte;
+	}
+
+	public void setConcluinte(Boolean concluinte) {
+		this.concluinte = concluinte;
+	}
+
+	public Boolean getBatismo() {
+		return batismo;
+	}
+
+	public void setBatismo(Boolean batismo) {
+		this.batismo = batismo;
+	}
+
+	public LocalDate getDataConclusao() {
+		return dataConclusao;
+	}
+
+	public void setDataConclusao(LocalDate dataConclusao) {
+		this.dataConclusao = dataConclusao;
+	}
+
+	public EstadoCivil getEstadocivil() {
+		return estadocivil;
+	}
+
+	public void setEstadocivil(EstadoCivil estadocivil) {
+		this.estadocivil = estadocivil;
 	}
 	
 	

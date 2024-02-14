@@ -57,7 +57,7 @@ public class SecurityConfig {
 			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO)
 			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO)
 			
-			.requestMatchers("/convertidos/**").hasAuthority(DISCIPULADO)
+			.requestMatchers("/discipulados/**").hasAuthority(DISCIPULADO)
 			
 			// acessos privados especialidades
 			.requestMatchers("/especialidades/datatables/server/especialista/*").hasAnyAuthority(ESPECIALISTA, ADMIN)

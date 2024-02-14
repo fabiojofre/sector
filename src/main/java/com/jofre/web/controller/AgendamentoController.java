@@ -48,7 +48,7 @@ public class AgendamentoController {
 	}
 
 	// busca os horarios livres, ou seja, sem agendamento
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
 	@GetMapping("/horario/especialista/{id}/data/{data}")
 	public ResponseEntity<?> getHorarios(@PathVariable("id") Long id,
 			@PathVariable("data") @DateTimeFormat(iso = ISO.DATE) LocalDate data) {
@@ -57,7 +57,7 @@ public class AgendamentoController {
 	}
 
 	// salvar um consulta agendada
-	@PreAuthorize("hasAuthority('PESSOA')")
+	@PreAuthorize("hasAuthority('PESSOA','DISCIPULADO')")
 	@PostMapping({ "/salvar" })
 	public String salvar(@AuthenticationPrincipal User user, RedirectAttributes attr, Agendamento agendamento) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
@@ -72,7 +72,7 @@ public class AgendamentoController {
 	}
 
 	// abrir pagina de historico de agendamento do pessoa
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
 	@GetMapping({ "/historico/pessoa", "/historico/consultas" })
 	public String historico() {
 
@@ -80,12 +80,12 @@ public class AgendamentoController {
 	}
 
 	// localizar o historico de agendamentos por usuario logado
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
 	@GetMapping("/datatables/server/historico")
 	public ResponseEntity<?> historicoAgendamentosPorPessoa(HttpServletRequest request,
 			@AuthenticationPrincipal User user) {
 
-		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.PESSOA.getDesc()))) {
+		if (!user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ESPECIALISTA.getDesc()))) {
 
 			return ResponseEntity.ok(service.buscarHistoricoPorPessoaEmail(user.getUsername(), request));
 		}
@@ -99,7 +99,7 @@ public class AgendamentoController {
 	}
 
 	// localizar agendamento pelo id e envia-lo para a pagina de cadastro
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
 	@GetMapping("/editar/consulta/{id}")
 	public String preEditarConsultaPessoa(@PathVariable("id") Long id, ModelMap model,
 			@AuthenticationPrincipal User user) {
@@ -110,7 +110,7 @@ public class AgendamentoController {
 		return "agendamento/cadastro";
 	}
 
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
 	@PostMapping("/editar")
 	public String editarConsulta(Agendamento agendamento, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		String titulo = agendamento.getEspecialidade().getTitulo();
