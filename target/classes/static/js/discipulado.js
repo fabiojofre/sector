@@ -32,11 +32,6 @@ $(document).ready(function() {
                     return '<a class="btn btn-success btn-sm btn-block" href="/discipulados/editar/convertido/'
                             + id + '" role="button"><i class="fas fa-edit"></i></a>';
                 }
-            },
-            {orderable : false,	data : 'id', "render" : function(id) {
-                    return '<a class="btn btn-danger btn-sm btn-block" href="/discipulados/excluir/convertido/'
-                    + id +'" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
-                }
             }
            
         ]
@@ -65,22 +60,19 @@ $(document).ready(function() {
             {data : 'id'},
             {data : 'nome'},
             {data : 'telefone'},
-            {data: 'dataConversao', render:
-                function( dataConversao ) {
-                    return moment(dataConversao).format('LL');
+            {data : 'ciclo.nome'},
+             {data: 'dataNascimento', render:
+                function( dataNascimento ) {
+                    return moment(dataNascimento).format('DD [de] MMMM');
                 }
             },
-            {data : 'endereco'},
-            {data : 'congregacao.nome'},
-            {data : 'pessoa.nome'}, 
-            {data : 'pessoa.telefone'}, 
             {orderable : false,	data : 'id', "render" : function(id) {
                     return '<a class="btn btn-success btn-sm btn-block" href="/discipulados/editar/convertido/'
                             + id + '" role="button"><i class="fas fa-edit"></i></a>';
                 }
             },
             {orderable : false,	data : 'id', "render" : function(id) {
-                    return '<a class="btn btn-danger btn-sm btn-block" href="/discipulados/excluir/convertido/'
+                    return '<a class="btn btn-danger btn-sm btn-block" href="/discipulados/concluir/convertido/'
                     + id +'" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
                 }
             }

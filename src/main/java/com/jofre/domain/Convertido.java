@@ -49,10 +49,6 @@ public class Convertido extends AbstractEntity{
 	@Column(name="batismo")
 	private Boolean batismo;
 	
-	@Column(name = "data_conclusao")
-	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate dataConclusao;
-	
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
@@ -60,6 +56,10 @@ public class Convertido extends AbstractEntity{
 	@ManyToOne
 	@JoinColumn(name= "id_estadocivil")
 	private EstadoCivil estadocivil;
+	
+	@ManyToOne
+	@JoinColumn(name= "id_ciclo")
+	private Ciclo ciclo;
 	
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
@@ -72,6 +72,15 @@ public class Convertido extends AbstractEntity{
 	@Column(name = "data_conversao")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataConversao;
+	
+	@Column(name = "data_conclusao")
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dataConclusao;
+	
+	@Column(name = "data_matriculado")
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dataMatriculado;
+	
 
 	public String getNome() {
 		return nome;
@@ -208,6 +217,22 @@ public class Convertido extends AbstractEntity{
 
 	public void setEstadocivil(EstadoCivil estadocivil) {
 		this.estadocivil = estadocivil;
+	}
+
+	public Ciclo getCiclo() {
+		return ciclo;
+	}
+
+	public void setCiclo(Ciclo ciclo) {
+		this.ciclo = ciclo;
+	}
+
+	public LocalDate getDataMatriculado() {
+		return dataMatriculado;
+	}
+
+	public void setDataMatriculado(LocalDate dataMatriculado) {
+		this.dataMatriculado = dataMatriculado;
 	}
 	
 	

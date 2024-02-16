@@ -1,5 +1,6 @@
 package com.jofre.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -59,13 +60,32 @@ public class ConvertidoService {
 		co.setCongregacao(convertido.getCongregacao());
 		co.setDataNascimento(convertido.getDataNascimento());
 		co.setDataConversao(convertido.getDataConversao());
+		if(convertido.getMatriculado() == null || convertido.getMatriculado() == false) {
+			co.setMatriculado(true);
+			co.setDataMatriculado(LocalDate.now());
+			co.setEstadocivil(convertido.getEstadocivil());
+			co.setCiclo(convertido.getCiclo());
+			co.setBatismo(convertido.getBatismo());
+			co.setDaUniao(convertido.getDaUniao());
+			co.setArea(convertido.getCongregacao().getArea());
+		}
 	}
+	
+	
+	
 
+//	@Transactional(readOnly = true)
+//	public Convertido buscarPorIdEUsuario(Long id, String email) {
+//		return repository.findByIdAndPessoaEmail(id, email)
+//				.orElseThrow(() -> new AcessoNegadoException("Acesso negado ao usuário: " + email));
+//	}
+	
 	@Transactional(readOnly = true)
 	public Convertido buscarPorIdEUsuario(Long id, String email) {
-		return repository.findByIdAndPessoaEmail(id, email)
+		return repository.findById(id)
 				.orElseThrow(() -> new AcessoNegadoException("Acesso negado ao usuário: " + email));
 	}
+
 
 	@Transactional(readOnly = false)
 	public void remover(Long id) {
@@ -101,5 +121,7 @@ public class ConvertidoService {
 				datatables.getPageable());
 		return datatables.getResponse(page);
 	}
+
+
 
 }

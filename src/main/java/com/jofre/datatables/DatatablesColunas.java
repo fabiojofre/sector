@@ -10,11 +10,11 @@ public class DatatablesColunas {
 
 	public static final String[] USUARIOS = {"id", "email", "ativo", "perfis"};	
 	//novo
-	public static final String[] CONGREGACOES = {"id", "nome", "responsavel","ePolo" ,"area","diaDoutrina","diaOracaoMocidade","diaDiscipulado","semanaCeia","ebdSabado","area"};
+	public static final String[] CONGREGACOES = {"id", "nome", "responsavel","area"};
 	//novo
 	public static final String[] CARGOS = {"id", "nome","estilo"};
 	//novo
-	public static final String[] CONVERTIDOS = {"id","nome","telefone","dataConversao","endereco","congregacao.nome","pessoa.nome","pessoa.telefone"};
+	public static final String[] CONVERTIDOS = {"id","nome","telefone","dataConversao","endereco","congregacao.nome","pessoa.nome","pessoa.telefone","ciclo.nome","dataNascimento"};
 	
 	public static final String[] DISCIPULADO = {"id","nome","obs_conversao","telefone","congregacao.nome", "aulas"};
 	

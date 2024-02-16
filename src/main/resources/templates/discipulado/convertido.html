@@ -15,7 +15,7 @@
 				width="72" height="72">
 			<div class="container">
 				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
-				<p class="lead text-muted">Cadastro de novos convertidos</p>
+				<p class="lead text-muted">Cadastro de discipulados</p>
 			</div>
 		</section>
 
@@ -27,7 +27,7 @@
 					
 						<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
 												
-						<form th:action="${convertido.id == null} ? @{/convertidos/salvar} : @{/convertidos/editar}" 
+						<form th:action="${convertido.id == null} ? @{/discipulados/salvar} : @{/discipulados/editar}" 
 							th:object="${convertido}"
 							method="POST" class="was-validated">
 							
@@ -43,15 +43,6 @@
 							</div>
 
 							<div class="mb-3">
-								<label for="nome">Data de Conversão</label>
-								<div class="input-group">
-									<input type="date" class="form-control" id="dataConversao"
-										   aria-describedby="validationTooltipUsernamePrepend"
-										   th:field="*{dataConversao}" required />
-									<div class="invalid-feedback">Data de conversão é requerida.</div>
-								</div>
-							</div>
-							<div class="mb-3">
 								<label for="nome">Telefone</label>
 								<div class="input-group">
 									<input type="tel" class="form-control" id="telefone" placeholder="insira seu telefone"
@@ -62,13 +53,46 @@
 							</div>
 
 							<div class="mb-3">
+								<label for="nome">Data de Nascimento</label>
+								<div class="input-group">
+									<input type="date" class="form-control" id="dataNascimento"
+										   aria-describedby="validationTooltipUsernamePrepend"
+										   th:field="*{dataNascimento}" required />
+									<div class="invalid-feedback">Data de nascimento é requerida.</div>
+								</div>
+							</div>
+							
+							<div class="mb-3">
 								<label for="nome">Endereço</label>
 								<div class="input-group">
 									<input type="text" class="form-control" id="endereco" placeholder="Insira o endereço"
 											aria-describedby="validationTooltipUsernamePrepend"
-										    th:field="*{endereco}" />
+										    th:field="*{endereco}"  required />
+									<div class="invalid-feedback">Endereço é requerido.</div>
 								</div>
 							</div>
+							
+							 <div class="mb-3">
+								<label for="cliclo">Estado Civil</label> 
+									<select id="estadocivil" class="form-control" th:field="*{estadocivil}" required>
+									<option value="">Selecione</option>
+									<option th:each="e : ${estadoCivil}" th:value="${e.id}"
+											th:text="${e.nome}"></option>
+									</select>
+									<div class="invalid-feedback">Estado civil é requerido.</div>
+								</div>
+	       	             							
+							 <div class="mb-3">
+								<label for="cliclo">Ciclo Atual</label> 
+									<select id="ciclo" class="form-control" th:field="*{ciclo}" required>
+									<option value="">Selecione</option>
+									<option th:each="c : ${ciclos}" th:value="${c.id}"
+											th:text="${c.nome}"></option>
+									</select>
+									<div class="invalid-feedback">Ciclo é requerido.</div>
+								</div>
+	       	             
+	       	                
 							<div class="mb-3">
 								<label for="nome">Obs.</label>
 								<div class="input-group">
@@ -80,12 +104,18 @@
 							<div class="mb-3">
 								<div class="custom-control custom-switch">
 								  <input type="checkbox" class="custom-control-input" 
-								  			th:field="*{inativo}" id="inativo" 
-								  			th:if="${inativo == true ? 'checked=checked' : ''}" />
-								  <label class="custom-control-label" for="inativo">Cadastro Intivo</label>
+								  			th:field="*{daUniao}" id="daUniao" 
+								  			th:if="${daUniao == true ? 'checked=checked' : ''}" />
+								  <label class="custom-control-label" for="daUniao">União de Adolescentes</label>
+								</div>
+								<div class="custom-control custom-switch">
+								  <input type="checkbox" class="custom-control-input" 
+								  			th:field="*{batismo}" id="batismo" 
+								  			th:if="${batismo == true ? 'checked=checked' : ''}" />
+								  <label class="custom-control-label" for="batismo">Apto ao Batismo</label>
 								</div>
 							</div>
-							
+							 
 							<input type="hidden" th:field="*{id}"/>							
 							<div class="form-group row">
 								<div class="col-sm-10">

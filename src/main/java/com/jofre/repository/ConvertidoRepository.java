@@ -56,10 +56,8 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	@Query("select c.id as id, "
 			+ "c.nome as nome,"
 			+ "c.telefone as telefone, "
-			+ "c.dataConversao as dataConversao,"
-			+ "c.endereco as endereco,"
-			+ "c.congregacao as congregacao,"
-			+ "c.pessoa as pessoa "
+			+ "c.dataNascimento as dataNascimento,"
+			+ "c.ciclo as ciclo "
 			+ "from Convertido c "
 			+ "where c.congregacao.id = :congregacao "
 			+ "and c.matriculado = true "
@@ -74,8 +72,5 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	@Query("select c from Convertido c where c.id = :id AND c.pessoa.usuario.email like :email ")
 	Optional<Convertido> findByIdAndPessoaEmail(Long id, String email);
 
-	
-
-	
-	
+		
 }

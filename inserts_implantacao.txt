@@ -37,3 +37,8 @@ insert into estadocivil(nome)values('Casado(a)');
 insert into estadocivil(nome)values('Viúvo(a)');
 insert into estadocivil(nome)values('União Estável');
 
+
+insert into ciclos(nome)values('Básico');
+insert into ciclos(nome)values('Intermediário');
+insert into ciclos(nome)values('Avançado');
+
