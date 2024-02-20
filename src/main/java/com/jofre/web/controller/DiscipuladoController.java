@@ -48,7 +48,7 @@ public class DiscipuladoController {
 	@Autowired
 	private EstadoCivilService civilService;
 	
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 	@GetMapping({ "", "/" })
 	public String abrir(Convertido convertido) {
 
@@ -56,7 +56,7 @@ public class DiscipuladoController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 	@PostMapping({ "/salvar" })
 	public String salvar(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
@@ -103,8 +103,8 @@ public class DiscipuladoController {
 	
 	
 	
-	// abrir histórico de convertidos
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO')")
+	// abrir histórico de MATRICULADOS
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO','CAMPANHA')")
 		@GetMapping("/historico/discipulado")
 		public String historicoDiscipulado() {
 
@@ -114,7 +114,7 @@ public class DiscipuladoController {
 	
 
 	// localizar histórico de matriculado
-	@PreAuthorize("hasAnyAuthority('PESSOA','DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA','DISCIPULADO','CAMPANHA')")
 	@GetMapping("/datatables/server/historicodiscipulado")
 	public ResponseEntity<?> historicoDiscipuladoPorEmail(HttpServletRequest request,
 			@AuthenticationPrincipal User user) {
@@ -127,20 +127,46 @@ public class DiscipuladoController {
 	}
 	
 	
+	// abrir histórico de concluintes
+			@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA','DISCIPULADO','CAMPANHA')")
+			@GetMapping("/historico/concluido")
+			public String historicoConcluintes() {
+
+				return "discipulado/historico-concluido";
+			}
+		
+		
+
+		// localizar histórico de matriculado
+		@PreAuthorize("hasAnyAuthority('PESSOA','DISCIPULADO','CAMPANHA')")
+		@GetMapping("/datatables/server/historicoconcluido")
+		public ResponseEntity<?> historicoConcluidoPorEmail(HttpServletRequest request,
+				@AuthenticationPrincipal User user) {
+			if (!user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ESPECIALISTA.getDesc()))) {
+
+				Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
+				return ResponseEntity.ok(service.bucarHistoricoConcluidoPorCongregacao(pessoa.getCongregacao().getId(), request));
+			}
+			return ResponseEntity.badRequest().build();
+		}
+		
+	
+	
+	
 	// localizar convertido pelo id e envia-lo para a pagina de cadastro
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@GetMapping("/editar/convertido/{id}")
 		public String preEditarConvertidoPessoa(@PathVariable("id") Long id, ModelMap model,
 				@AuthenticationPrincipal User user) {
 				
 			Convertido convertido = service.buscarPorIdEUsuario(id,user.getUsername());
-			
+			convertido.setMatriculado(true);
 				System.out.println(" O ID do convertido é: -> "+ convertido.getId());
 			model.addAttribute("convertido", convertido);
 			return "discipulado/convertido";
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@PostMapping("/editar")
 		public String editarConvertido(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 			System.out.println("Já nesse caso, o id desse método é: "+convertido.getId());
@@ -149,7 +175,7 @@ public class DiscipuladoController {
 			Congregacao congregacao = pessoa.getCongregacao();
 			convertido.setPessoa(pessoa);
 			convertido.setCongregacao(congregacao);
-			
+			convertido.setMatriculado(true);
 									
 			service.editar(convertido,user.getUsername());
 			
@@ -157,7 +183,7 @@ public class DiscipuladoController {
 			return "redirect:/discipulados/historico/discipulado";
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA')")
 		@GetMapping("/excluir/convertido/{id}")
 		public String excluirConvertido(@PathVariable("id") Long id, RedirectAttributes attr) {
 			service.remover(id);
@@ -165,7 +191,7 @@ public class DiscipuladoController {
 			return "redirect:/discipulados/historico/convertido";
 		}
 		
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@GetMapping("/concluir/convertido/{id}")
 		public String concluirConvertido(@PathVariable("id") Long id, RedirectAttributes attr) {
 			Convertido convertido = service.buscarPorId(id);
@@ -175,14 +201,25 @@ public class DiscipuladoController {
 			attr.addFlashAttribute("sucesso", "Convertido formado com sucesso.");
 			return "redirect:/discipulados/historico/discipulado";
 		}
+		
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
+		@GetMapping("/rematricular/convertido/{id}")
+		public String rematricularDiscipulado(@PathVariable("id") Long id, RedirectAttributes attr) {
+			Convertido convertido = service.buscarPorId(id);
+			convertido.setConcluinte(null);
+			convertido.setDataConclusao(null);
+			service.salvar(convertido);
+			attr.addFlashAttribute("sucesso", "Convertido formado com sucesso.");
+			return "redirect:/discipulados/historico/concluido";
+		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@ModelAttribute("ciclos")
 		public List<Ciclo>listaDeCiclos(){
 			return cicloService.buscarTodos();
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@ModelAttribute("estadoCivil")
 		public List<EstadoCivil>listaDeEstadoCivil(){
 			return civilService.buscarTodos();

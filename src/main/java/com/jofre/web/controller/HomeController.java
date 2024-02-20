@@ -1,9 +1,19 @@
 package com.jofre.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.jofre.domain.Perfil;
+import com.jofre.domain.PerfilTipo;
+import com.jofre.domain.Pessoa;
+import com.jofre.domain.Usuario;
+import com.jofre.service.PessoaService;
+import com.jofre.service.UsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,11 +22,41 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
+	@Autowired
+	UsuarioService service;
+	
+	@Autowired
+	PessoaService pessoaService;
+	
+	
+	
 	// abrir pagina home
 	@GetMapping({"/", "/home"})
-	public String home(HttpServletResponse response) {
+	public String home(HttpServletResponse response, @AuthenticationPrincipal User user) {
+	
+		try {
+		Usuario us = service.buscarPorEmail(user.getUsername());
+		
+		Pessoa pessoa = pessoaService.buscarPorUsuarioEmailValido(user.getUsername());
+		
+		
+		if((!us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod()))) &&
+	    		!us.getPerfis().contains(new Perfil(PerfilTipo.ESPECIALISTA.getCod()))&&(pessoa == null)) {
+			return "redirect:/pessoas/dados";
+		}
+		}catch (Exception e) {
+			System.out.println("Abrindo home...");
+		}
 		return "home";
-	}		
+	}	
+	
+//
+//	// abrir pagina home
+//	@GetMapping({"/", "/home"})
+//	public String home(HttpServletResponse response) {
+//		
+//		return "home";
+//	}	
 
 
 	// abrir pagina login

@@ -18,6 +18,13 @@ public class PessoaService {
 		
 		return repository.findByUsuarioEmail(email).orElse(new Pessoa());
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public Pessoa buscarPorUsuarioEmailValido(String email) {
+		
+		return repository.findByUsuarioEmailValido(email);
+	}
 
 	@Transactional(readOnly = false)
 	public void salvar(Pessoa pessoa) {

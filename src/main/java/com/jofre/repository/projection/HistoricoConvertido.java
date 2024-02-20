@@ -29,4 +29,5 @@ public interface HistoricoConvertido {
 	
 	Ciclo getCiclo();
 	
+	LocalDate getDataConclusao();
 }

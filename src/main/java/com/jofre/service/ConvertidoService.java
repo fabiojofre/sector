@@ -60,7 +60,7 @@ public class ConvertidoService {
 		co.setCongregacao(convertido.getCongregacao());
 		co.setDataNascimento(convertido.getDataNascimento());
 		co.setDataConversao(convertido.getDataConversao());
-		if(convertido.getMatriculado() == null || convertido.getMatriculado() == false) {
+		if(!(convertido.getMatriculado() == null || convertido.getMatriculado() == false)) {
 			co.setMatriculado(true);
 			co.setDataMatriculado(LocalDate.now());
 			co.setEstadocivil(convertido.getEstadocivil());
@@ -118,6 +118,22 @@ public class ConvertidoService {
 		datatables.setRequest(request);
 		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
 		Page<HistoricoConvertido> page = repository.findHistoricoMatriculadoCongregacao(congregacao,
+				datatables.getPageable());
+		return datatables.getResponse(page);
+	}
+
+	public Map<String, Object> bucarHistoricoConvertidoPorPessoaCongregacao(Long congregacao, Long pessoa, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
+		Page<HistoricoConvertido> page = repository.findHistoricoConvertidoPessoaCongregacao(congregacao,pessoa, datatables.getPageable());
+
+		return datatables.getResponse(page);
+	}
+
+	public Map<String, Object> bucarHistoricoConcluidoPorCongregacao(Long congregacao, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOS);
+		Page<HistoricoConvertido> page = repository.findHistoricoConcluidoCongregacao(congregacao,
 				datatables.getPageable());
 		return datatables.getResponse(page);
 	}

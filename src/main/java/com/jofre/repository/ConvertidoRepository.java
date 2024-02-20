@@ -72,5 +72,35 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	@Query("select c from Convertido c where c.id = :id AND c.pessoa.usuario.email like :email ")
 	Optional<Convertido> findByIdAndPessoaEmail(Long id, String email);
 
+	@Query("select c.id as id, "
+			+ "c.nome as nome,"
+			+ "c.telefone as telefone, "
+			+ "c.dataConversao as dataConversao,"
+			+ "c.endereco as endereco,"
+			+ "c.congregacao as congregacao,"
+			+ "c.pessoa as pessoa "
+			+ "from Convertido c "
+			+ "where (c.congregacao.id = :congregacao "
+			+ "or c.pessoa.id = :pessoa) "
+			+ "and (c.matriculado = false or c.matriculado = null) "
+			+ "and (c.concluinte = false or c.concluinte = null) "
+			+ "and (c.inativo =  false or c.inativo = null) ")
+	Page<HistoricoConvertido> findHistoricoConvertidoPessoaCongregacao(Long congregacao, Long pessoa,
+			Pageable pageable);
+
+	
+	@Query("select c.id as id, "
+			+ "c.nome as nome, "
+			+ "c.telefone as telefone, "
+			+ "c.dataNascimento as dataNascimento,"
+			+ "c.dataConclusao as dataConclusao, "
+			+ "c.ciclo as ciclo "
+			+ "from Convertido c "
+			+ "where c.congregacao.id = :congregacao "
+			+ "and c.matriculado = true "
+			+ "and c.concluinte = true  "
+			+ "and (c.inativo =  false or c.inativo = null) ")
+	Page<HistoricoConvertido> findHistoricoConcluidoCongregacao(Long congregacao, Pageable pageable);
+
 		
 }

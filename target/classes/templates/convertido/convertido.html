@@ -54,7 +54,7 @@
 							<div class="mb-3">
 								<label for="nome">Telefone</label>
 								<div class="input-group">
-									<input type="tel" class="form-control" id="telefone" placeholder="insira seu telefone"
+									<input type="number" min="899999999" max="99999999999" class="form-control" id="telefone" placeholder="insira seu telefone"
 											aria-describedby="validationTooltipUsernamePrepend"
 										    th:field="*{telefone}" required />
 									<div class="invalid-feedback">Telefone é requerido.</div>

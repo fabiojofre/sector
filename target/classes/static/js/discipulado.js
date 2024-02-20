@@ -83,6 +83,52 @@ $(document).ready(function() {
 
 
 
+/**
+ * Datatable histórico de discipulados
+*/
+$(document).ready(function() {
+    moment.locale('pt-BR');
+    var table = $('#table-concluido-historico').DataTable({
+        searching : false,
+        lengthMenu : [ 5, 10 ],
+        processing : true,
+        serverSide : true,
+        responsive : true,
+        order: [5, 'desc'],
+        ajax : {
+            url : '/discipulados/datatables/server/historicoconcluido',
+            data : 'data'
+        },
+        columns : [
+            {data : 'id'},
+            {data : 'nome'},
+            {data : 'telefone'},
+            {data : 'ciclo.nome'},
+             {data: 'dataNascimento', render:
+                function( dataNascimento ) {
+                    return moment(dataNascimento).format('DD [de] MMMM');
+                }
+            },
+             {data: 'dataConclusao', render:
+                function( dataConclusao ) {
+                    return moment(dataConclusao).format('LL');
+                }
+            },
+            {orderable : false,	data : 'id', "render" : function(id) {
+                    return '<a class="btn btn-success btn-sm btn-block" href="/discipulados/editar/convertido/'
+                            + id + '" role="button"><i class="fas fa-edit"></i></a>';
+                }
+            },
+             {orderable : false,	data : 'id', "render" : function(id) {
+                    return '<a class="btn btn-danger btn-sm btn-block" href="/discipulados/rematricular/convertido/'
+                    + id +'" role="button" data-toggle="modal" data-target="#confirm-modal"><i class="fas fa-times-circle"></i></a>';
+                }
+            }
+           
+        ]
+    });
+});
+
 
 
 

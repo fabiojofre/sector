@@ -38,7 +38,7 @@ public class ConvertidoController {
 	@Autowired
 	private CongregacaoService congregacaoService;
 	
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA')")
 	@GetMapping({ "", "/" })
 	public String abrir(Convertido convertido) {
 
@@ -46,7 +46,7 @@ public class ConvertidoController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA')")
 	@PostMapping({ "/salvar" })
 	public String salvar(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
@@ -64,7 +64,7 @@ public class ConvertidoController {
 	}
 
 	// abrir histórico de convertidos
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA', 'CAMPANHA')")
 	@GetMapping("/historico/convertido")
 	public String historico() {
 
@@ -72,19 +72,23 @@ public class ConvertidoController {
 	}
 
 	// localizar histórico de convertido por pessoa
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA')")
 	@GetMapping("/datatables/server/historico")
 	public ResponseEntity<?> historicoConvertidoPorEmail(HttpServletRequest request,
 			@AuthenticationPrincipal User user) {
 		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.PESSOA.getDesc()))) {
 
 			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorPessoa(user.getUsername(), request));
+			
+		}if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.CAMPANHA.getDesc()))) {
+			Pessoa pessoa =  pessoaService.buscarPorUsuarioEmail(user.getUsername());
+			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorPessoaCongregacao(pessoa.getCongregacao().getId(),pessoa.getId(), request));
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	// localizar convertido pelo id e envia-lo para a pagina de cadastro
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA')")
 		@GetMapping("/editar/convertido/{id}")
 		public String preEditarcConvertidoPessoa(@PathVariable("id") Long id, ModelMap model,
 				@AuthenticationPrincipal User user) {
@@ -96,7 +100,7 @@ public class ConvertidoController {
 			return "convertido/convertido";
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA')")
 		@PostMapping("/editar")
 		public String editarConvertido(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 			System.out.println("Já nesse caso, o id desse método é: "+convertido.getId());
@@ -111,7 +115,7 @@ public class ConvertidoController {
 			return "redirect:/convertidos/historico/convertido";
 		}
 
-		@PreAuthorize("hasAuthority('PESSOA')")
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'CAMPANHA')")
 		@GetMapping("/excluir/convertido/{id}")
 		public String excluirConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
 			service.remover(id);

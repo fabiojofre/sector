@@ -14,11 +14,16 @@
 				width="72" height="72">
 			<div class="container">
 				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
-				<p class="lead text-muted">Especialistas e Especialidades</p>
+				<br/>
+				<h1>Cadastre seus dados.</h1>
+				
+			
 			</div>
+			
 		</section>
-
+				
 		<div class="album py-5 bg-light">
+			
 			<div class="container">
 
 				<div class="d-flex justify-content-center">
@@ -51,7 +56,7 @@
 							<div class="mb-3">
 								<label for="nome">Telefone</label>
 								<div class="input-group">
-									<input type="tel" class="form-control" id="telefone" placeholder="insira seu telefone"
+									<input type="number" min="9999999999" max="99999999999" class="form-control" id="telefone" placeholder="insira seu telefone"
 											aria-describedby="validationTooltipUsernamePrepend"
 										    th:field="*{telefone}" required />
 									<div class="invalid-feedback">Telefone é requerido.</div>
