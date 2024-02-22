@@ -48,6 +48,10 @@ public class Congregacao extends AbstractEntity {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "congregacao")
+	private List<Convite> convites;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "congregacao")
 	private List<Pessoa> pessoas;
 
 

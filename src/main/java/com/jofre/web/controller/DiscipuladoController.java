@@ -41,8 +41,7 @@ public class DiscipuladoController {
 	private ConvertidoService service;
 	@Autowired
 	private PessoaService pessoaService;
-	@Autowired
-	private CongregacaoService congregacaoService;
+	
 	@Autowired
 	private CicloService cicloService;
 	@Autowired
