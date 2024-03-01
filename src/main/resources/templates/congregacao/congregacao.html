@@ -74,11 +74,6 @@
 										for="ePolo"> Congregação Pólo da Área </label>
 									<div class="invalid-feedback"></div>
 								</div>
-								<div class="form-group col-md-6">
-									<input type="checkbox" id="ebdSabado" th:field="*{ebdSabado}" />
-									<label for="ebdSabado"> EBD Realizada no Sábado </label>
-									<div class="invalid-feedback"></div>
-								</div>
 								</div>
 								<div class="form-group row">
 								<div class="form-group col-md-6">
@@ -129,6 +124,21 @@
 									<label for="diaDiscipulado">Dia do Discipulado</label> <select
 										id="diaDiscipulado" class="form-control"
 										th:field="*{diaDiscipulado}">
+										<option value="">Selecione...</option>
+										<option value="1">Domingo</option>
+										<option value="2">Segunda</option>
+										<option value="3">Terça</option>
+										<option value="4">Quarta</option>
+										<option value="5">Quinta</option>
+										<option value="6">Sexta</option>
+										<option value="7">Sábado</option>
+									</select>
+									<div class="invalid-feedback"></div>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="diaEbd">Dia da EBD</label> <select
+										id="diaEbd" class="form-control"
+										th:field="*{diaEbd}">
 										<option value="">Selecione...</option>
 										<option value="1">Domingo</option>
 										<option value="2">Segunda</option>

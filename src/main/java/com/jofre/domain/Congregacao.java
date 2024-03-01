@@ -39,9 +39,10 @@ public class Congregacao extends AbstractEntity {
 	@Column(name = "semana_ceia")
 	private Integer semanaCeia;
 	
-	@Column(name = "ebd_sabado")
-	private Boolean ebdSabado;
+	@Column(name="dia_ebd")
+	private Integer diaEbd;
 	
+		
 	@JsonIgnore
 	@OneToMany(mappedBy = "congregacao")
 	private List<Convertido> convertidos;
@@ -127,12 +128,21 @@ public class Congregacao extends AbstractEntity {
 		this.semanaCeia = semanaCeia;
 	}
 
-	public Boolean getEbdSabado() {
-		return ebdSabado;
+
+	public Integer getDiaEbd() {
+		return diaEbd;
 	}
 
-	public void setEbdSabado(Boolean ebdSabado) {
-		this.ebdSabado = ebdSabado;
+	public void setDiaEbd(Integer diaEbd) {
+		this.diaEbd = diaEbd;
+	}
+
+	public List<Convite> getConvites() {
+		return convites;
+	}
+
+	public void setConvites(List<Convite> convites) {
+		this.convites = convites;
 	}
 
 	public List<Convertido> getConvertidos() {

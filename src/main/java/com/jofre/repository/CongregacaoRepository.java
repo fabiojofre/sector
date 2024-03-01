@@ -29,5 +29,11 @@ public interface CongregacaoRepository extends JpaRepository<Congregacao, Long> 
 	@Query("select c from Congregacao c where c.nome = :nome")
 	Congregacao findCongregacaoByNome(String nome);
 
+	
+	// busca congregacoes com restiçes de ids e areas 
+	@Query("select c from Congregacao c "
+			+ "where c.id not in (:congregacoes) or "
+			+ "c.area not in (:areas)")
+	List<Congregacao>findByConviteCongregacaoDisponivel(List<Integer> areas, List<Integer> congregacoes );
 
 }
