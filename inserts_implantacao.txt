@@ -42,3 +42,7 @@ insert into ciclos(nome)values('Básico');
 insert into ciclos(nome)values('Intermediário');
 insert into ciclos(nome)values('Avançado');
 
+INSERT INTO tipos(nome)VALUES ('Aniversários');
+INSERT INTO tipos(nome)VALUES ('Avivamento');
+INSERT INTO tipos(nome)VALUES ('Cruzada');
+

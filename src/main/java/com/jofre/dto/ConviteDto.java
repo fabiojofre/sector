@@ -10,7 +10,7 @@ public class ConviteDto implements Serializable {
     
 	
 	private LocalDate dataEvento;
-	private Integer tipoevento;
+	private String tipo;
 	private Integer area;
 	private String congregacao;
 	private String[] congregacoes;
@@ -22,11 +22,11 @@ public class ConviteDto implements Serializable {
 	public void setDataEvento(LocalDate dataEvento) {
 		this.dataEvento = dataEvento;
 	}
-	public Integer getTipoevento() {
-		return tipoevento;
+	public String getTipo() {
+		return tipo;
 	}
-	public void setTipoevento(Integer tipoevento) {
-		this.tipoevento = tipoevento;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	public Integer getArea() {
 		return area;

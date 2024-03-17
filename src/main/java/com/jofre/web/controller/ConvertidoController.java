@@ -117,7 +117,7 @@ public class ConvertidoController {
 
 		@PreAuthorize("hasAnyAuthority('PESSOA', 'CAMPANHA')")
 		@GetMapping("/excluir/convertido/{id}")
-		public String excluirConsulta(@PathVariable("id") Long id, RedirectAttributes attr) {
+		public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
 			service.remover(id);
 			attr.addFlashAttribute("sucesso", "Convertido excluído com sucesso.");
 			return "redirect:/convertidos/historico/convertido";

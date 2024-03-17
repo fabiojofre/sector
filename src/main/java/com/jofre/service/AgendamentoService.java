@@ -100,25 +100,25 @@ public class AgendamentoService {
 		Optional<Especialista> esp = repo.findById(especialista);
 		String dia = Integer.toString(data.getDayOfWeek().getValue());
 
-		if(esp.get().iseDomingo()) {
+		if(esp.get().geteDomingo()) {
 			dias+="7";
 		}
-		if(esp.get().iseSegunda()) {
+		if(esp.get().geteSegunda()) {
 			dias+="1";
 		}
-		if(esp.get().iseTerca()) {
+		if(esp.get().geteTerca()) {
 			dias+="2";
 		}
-		if(esp.get().iseQuarta()) {
+		if(esp.get().geteQuarta()) {
 			dias+="3";
 		}
-		if(esp.get().iseQuinta()) {
+		if(esp.get().geteQuinta()) {
 			dias+="4";
 		}
-		if(esp.get().iseSexta()) {
+		if(esp.get().geteSexta()) {
 			dias+="5";
 		}
-		if(esp.get().iseSabado()) {
+		if(esp.get().geteSabado()) {
 			dias+="6";
 		}
 		return dias.contains(dia);

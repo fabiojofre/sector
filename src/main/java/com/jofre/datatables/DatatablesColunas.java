@@ -18,6 +18,6 @@ public class DatatablesColunas {
 	
 	public static final String[] DISCIPULADO = {"id","nome","obs_conversao","telefone","congregacao.nome", "aulas"};
 	
-	public static final String[] CONVITE = {"id","congregacao.nome","tipoevento","dataEvento", "area","congregacoes"};
+	public static final String[] CONVITES = {"id","congregacao.nome","tipo.nome","dataEvento", "area","congregacoes[].congregacao.nome"};
 	
 }

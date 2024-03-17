@@ -126,7 +126,7 @@ public class Especialista extends AbstractEntity {
 		this.usuario = usuario;
 	}
 
-	public Boolean iseDomingo() {
+	public Boolean geteDomingo() {
 		return eDomingo;
 	}
 
@@ -134,7 +134,7 @@ public class Especialista extends AbstractEntity {
 		this.eDomingo = eDomingo;
 	}
 
-	public Boolean iseSegunda() {
+	public Boolean geteSegunda() {
 		return eSegunda;
 	}
 
@@ -142,7 +142,7 @@ public class Especialista extends AbstractEntity {
 		this.eSegunda = eSegunda;
 	}
 
-	public Boolean iseTerca() {
+	public Boolean geteTerca() {
 		return eTerca;
 	}
 
@@ -150,7 +150,7 @@ public class Especialista extends AbstractEntity {
 		this.eTerca = eTerca;
 	}
 
-	public Boolean iseQuarta() {
+	public Boolean geteQuarta() {
 		return eQuarta;
 	}
 
@@ -158,7 +158,7 @@ public class Especialista extends AbstractEntity {
 		this.eQuarta = eQuarta;
 	}
 
-	public Boolean iseQuinta() {
+	public Boolean geteQuinta() {
 		return eQuinta;
 	}
 
@@ -166,7 +166,7 @@ public class Especialista extends AbstractEntity {
 		this.eQuinta = eQuinta;
 	}
 
-	public Boolean iseSexta() {
+	public Boolean geteSexta() {
 		return eSexta;
 	}
 
@@ -174,12 +174,13 @@ public class Especialista extends AbstractEntity {
 		this.eSexta = eSexta;
 	}
 
-	public Boolean iseSabado() {
+	public Boolean geteSabado() {
 		return eSabado;
 	}
 
 	public void seteSabado(Boolean eSabado) {
 		this.eSabado = eSabado;
 	}
+
 	
 }

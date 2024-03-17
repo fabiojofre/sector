@@ -110,8 +110,6 @@ public class DiscipuladoController {
 			return "discipulado/historico-discipulado";
 		}
 	
-	
-
 	// localizar histórico de matriculado
 	@PreAuthorize("hasAnyAuthority('PESSOA','DISCIPULADO','CAMPANHA')")
 	@GetMapping("/datatables/server/historicodiscipulado")

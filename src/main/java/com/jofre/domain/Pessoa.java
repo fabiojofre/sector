@@ -31,6 +31,9 @@ public class Pessoa extends AbstractEntity {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Convertido> convertidos;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pessoa")
+	private List<Convite> convite;
 
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
@@ -107,6 +110,14 @@ public class Pessoa extends AbstractEntity {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Convite> getConvite() {
+		return convite;
+	}
+
+	public void setConvite(List<Convite> convite) {
+		this.convite = convite;
 	}
 
 }

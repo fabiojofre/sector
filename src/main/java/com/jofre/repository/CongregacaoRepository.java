@@ -34,6 +34,6 @@ public interface CongregacaoRepository extends JpaRepository<Congregacao, Long> 
 	@Query("select c from Congregacao c "
 			+ "where c.id not in (:congregacoes) or "
 			+ "c.area not in (:areas)")
-	List<Congregacao>findByConviteCongregacaoDisponivel(List<Integer> areas, List<Integer> congregacoes );
+	List<Congregacao>findByConviteCongregacaoDisponivel(List<Integer> areas, Set<Long> congregacoes );
 
 }

@@ -1,7 +1,11 @@
 package com.jofre.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jofre.datatables.Datatables;
 import com.jofre.datatables.DatatablesColunas;
 import com.jofre.domain.Congregacao;
+import com.jofre.domain.Convite;
 import com.jofre.repository.CongregacaoRepository;
+import com.jofre.repository.ConviteRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -21,6 +27,9 @@ public class CongregacaoService {
 
 	@Autowired
 	private CongregacaoRepository repository;
+	
+	@Autowired
+	private ConviteRepository conviteRepository;
 	
 	@Autowired
 	private Datatables datatables;
@@ -66,7 +75,27 @@ public class CongregacaoService {
 		return repository.findAll();
 	} 
 	
-
+	//faz busca das congregações disponíveis por data e áreas e repetidas num período 
+	@Transactional(readOnly = true)
+	public List<Congregacao> buscarDisponiveis(Long convite) {
+		Optional<Convite> c = conviteRepository.findById(convite);
+		LocalDate data = c.get().getDataEvento();
+		Integer dia = data.getDayOfWeek().getValue();
+		Set<Long>indisponiveis = new HashSet<Long>(); 
+		List<Integer>areasIndisponiveis =new ArrayList<Integer>();
+		indisponiveis.addAll(conviteRepository.findByCongregacoesRepetidas(data));
+		indisponiveis.addAll(conviteRepository.findByCongregacesComDiasImportantes(dia));
+		areasIndisponiveis.addAll(conviteRepository.findByAreasFestividades(data));
+		for(int i =0; i< areasIndisponiveis.size();i++) {
+			if(areasIndisponiveis.get(i)==c.get().getArea()) {
+				areasIndisponiveis.set(i, 0);
+			}
+		}
+	
+		return repository.findByConviteCongregacaoDisponivel(areasIndisponiveis, indisponiveis);
+	} 
+	
+	
 	@Transactional(readOnly = true)
 	public Set<Congregacao> buscarCongregacaoPorArea(Integer area) {
 		

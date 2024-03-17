@@ -27,11 +27,16 @@ public class Convite extends AbstractEntity {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataEvento;
 	
-	@Column(name = "tipo_evento")
-	private Integer tipoevento;
+	@ManyToOne
+	@JoinColumn(name= "id_tipo")
+	private Tipo tipo;
 	
 	@Column(name = "area")
 	private Integer area;
+	
+	@ManyToOne
+	@JoinColumn(name="id_pessoa")
+	private Pessoa pessoa;
 	
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
@@ -49,6 +54,8 @@ public class Convite extends AbstractEntity {
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
 	
+	@Column(name = "liberado")
+	private Boolean liberado;
 	
 	public Convite() {
 		super();
@@ -67,12 +74,13 @@ public class Convite extends AbstractEntity {
 		this.dataEvento = dataEvento;
 	}
 
-	public Integer getTipoevento() {
-		return tipoevento;
+
+	public Tipo getTipo() {
+		return tipo;
 	}
 
-	public void setTipoevento(Integer tipoevento) {
-		this.tipoevento = tipoevento;
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
 	public Integer getArea() {
@@ -99,12 +107,28 @@ public class Convite extends AbstractEntity {
 		this.congregacoes = congregacoes;
 	}
 
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	public Boolean getAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Boolean getLiberado() {
+		return liberado;
+	}
+
+	public void setLiberado(Boolean liberado) {
+		this.liberado = liberado;
 	}
 
 }
