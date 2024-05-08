@@ -14,7 +14,7 @@
 				width="72" height="72">
 			<div class="container">
 				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
-				<p class="lead text-muted">Hitórico de Convertidos</p>
+				<p class="lead text-muted">Agenda</p>
 			</div>
 		</section>
 
@@ -24,22 +24,17 @@
 				<div class="d-flex justify-content-center">
 					<div class="col-md-10">
 						<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
-						<h2>Convertidos</h2>
+						<h2>Agenda</h2>
 
-						<table id="table-convertido-historico"
+						<table id="table-convite-recebido"
 							class="table table-sm table-striped table-bordered nowrap"
 							style="width: 100%">
 							<thead class="thead-dark">
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">nome</th>
-									<th scope="col">Telefone</th>
-									<th scope="col">Data da Conversão</th>
-									<th scope="col">Endereço</th>
-									<th scope="col">Congregação</th>
-									<th scope="col">Usuário</th>
-									<th scope="col">Telefone Usuário</th>		
-									<th scope="col">Matricular</th>
+									<th scope="col">Festividade</th>
+									<th scope="col">Data</th>
+									<th scope="col">Congregacao</th>	
 								</tr>
 							</thead>
 						</table>
@@ -52,7 +47,7 @@
 		
 	</section>
 	<script
-		th:src="@{/js/discipulado.js(v=${version})}"
+		th:src="@{/js/convite.js(v=${version})}"
 		th:fragment="js"></script>
 	<script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>

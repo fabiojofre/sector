@@ -41,10 +41,8 @@ public class ConviteService {
 	public void editar(Convite convite, String email) {
 		Convite co = buscarPorIdEUsuario(convite.getId(), email);
 		
-		co.setArea(convite.getArea());
-		co.setCongregacao(convite.getCongregacao());
-		co.setAtivo(convite.getAtivo());
-		co.setLiberado(convite.getLiberado());
+		co.setTipo(convite.getTipo());
+		co.setLiberado(true);
 		co.setDataEvento(convite.getDataEvento());
 		co.setCongregacoes(convite.getCongregacoes());
 		
@@ -73,6 +71,15 @@ public class ConviteService {
 	public void remover(Long id) {
 		repository.deleteById(id);
 		
+	}
+
+	@Transactional(readOnly = true)
+	public  Map<String, Object> buscarConvitesRecebidos(HttpServletRequest request, Long congregacao) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVITES);
+		Page<HistoricoConvite> page =  repository.findAllConviteRecebidosByCongregacao(datatables.getPageable(),congregacao);		
+		System.out.println("Impressão = "+page.get().toString());
+		return datatables.getResponse(page);
 	}
 	
 	

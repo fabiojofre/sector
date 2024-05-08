@@ -35,7 +35,7 @@
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js(v=${version}) }"></script>
 </head>
 <body>	
-	<form th:action="@{/u/p/nova/senha/}" th:object="${usuario}"
+	<form th:action="@{/u/p/nova/senha}" th:object="${usuario}"
 			class="form-signin was-validated" method="POST">		
 		<div class="text-center mb-4">
 			<img class="mb-4" th:src="@{/image/ieadpe.png}" alt=""
@@ -77,7 +77,7 @@
 			<a class="flex-sm-fill text-sm-left nav-link text-decoration-none" th:href="@{/}">
 				<i class="fas fa-home"></i>&nbsp;Home</a>
 		</nav>
-		<p class="mt-5 mb-3 text-muted text-center">Clínica Spring
+		<p class="mt-5 mb-3 text-muted text-center">Sector Sistma de Gestão
 			Security&copy; 2019</p>
 	</form>
 </body>

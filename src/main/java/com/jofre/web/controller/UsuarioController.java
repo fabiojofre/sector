@@ -63,7 +63,7 @@ public class UsuarioController {
     @PostMapping("/cadastro/salvar")
     public String salvarUsuarios(Usuario usuario, RedirectAttributes attr) {
     	List<Perfil> perfis = usuario.getPerfis();
-    	if (perfis.size() > 2 || 
+    	if (perfis.size() > 3 || 
     			perfis.containsAll(Arrays.asList(new Perfil(1L), new Perfil(3L))) ||
     			perfis.containsAll(Arrays.asList(new Perfil(2L), new Perfil(3L)))) {
     		attr.addFlashAttribute("falha", "Pessoa não pode ser Admin e/ou Especialista.");

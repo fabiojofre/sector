@@ -73,9 +73,11 @@ public class ConviteController {
 		return ResponseEntity.ok(service.buscarConvites(request,pessoa.getCongregacao().getId()));
 	}
 	
+	//listagem liberados
+	
 	@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
 	@GetMapping("/historico/liberados")
-	public String historicoDiscipulado() {
+	public String historicoLiberados() {
 
 		return "convite/historico-liberado";
 	}
@@ -87,9 +89,31 @@ public class ConviteController {
 		return ResponseEntity.ok(service.buscarConvitesLiberados(request,pessoa.getCongregacao().getId()));
 	}
 	
-	// localizar convite pelo id e envia-lo para a pagina de cadastro
+	
+	//listagem recebidos
+	
+	@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
+	@GetMapping("/historico/recebidos")
+	public String historicoRecebidos() {
+
+		return "convite/historico-recebido";
+	}
+	
+	@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
+	@GetMapping("/datatables/server/listarecebidos")
+	public ResponseEntity<?> getConvitesRecebidos(HttpServletRequest request, @AuthenticationPrincipal User user) {
+		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
+		return ResponseEntity.ok(service.buscarConvitesRecebidos(request,pessoa.getCongregacao().getId()));
+	}
+	
+	
+	
+	
+	
+	// localizar convite pelo id e envia-lo para a pagina de cadastro PARA LIBERAR
+	
 			@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
-			@GetMapping("/editar/convite/{id}")
+			@GetMapping("/editar/{id}")
 			public String preEditarcConvitePessoa(@PathVariable("id") Long id, ModelMap model,
 					@AuthenticationPrincipal User user) {
 
@@ -97,22 +121,18 @@ public class ConviteController {
 				
 					System.out.println(" O ID do convite é: -> "+ convite.getId());
 				model.addAttribute("convite", convite);
-				return "convite/convite";
+				return "convite/convidar";
 			}
 
 			@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
 			@PostMapping("/editar")
 			public String editarConvite(Convite convite, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 				System.out.println("Já nesse caso, o id desse método é: "+convite.getId());
-				Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
-				Long id_congreg = convite.getCongregacao().getId();
-				Congregacao congregacao = congregacaoService.buscarPorId(id_congreg);
-				convite.setPessoa(pessoa);
-				convite.setCongregacao(congregacao);
+				
 				service.editar(convite,user.getUsername());
 				
 				attr.addFlashAttribute("sucesso", "Seu convvite foi alterado com sucesso.");
-				return "redirect:/convertidos/historico/convertido";
+				return "redirect:/convites/historico/liberados";
 			}
 	
 	

@@ -105,7 +105,7 @@ $(document).ready(function() {
 			},
 			{
 				orderable: false, data: 'id', "render": function(id) {
-					return '<a class="btn btn-success btn-sm btn-block" href="/convites/editar/convertido/'
+					return '<a class="btn btn-success btn-sm btn-block" href="/convites/editar/'
 						+ id + '" role="button"><i class="fas fa-edit"></i></a>';
 				}
 			},
@@ -123,8 +123,32 @@ $(document).ready(function() {
 
 
 
-
-
+$(document).ready(function() {
+	moment.locale('pt-BR');
+	var table = $('#table-convite-recebido').DataTable({
+		searching: false,
+		order: [[3, "asc"]],
+		lengthMenu: [5, 10],
+		processing: true,
+		serverSide: true,
+		responsive: true,
+		ajax: {
+			url: '/convites/datatables/server/listarecebidos',
+			data: 'data'
+		},
+		columns: [
+			{ data: 'id' },
+			{ data: 'tipo.nome' },
+			{
+				data: 'dataEvento', render:
+					function(dataEvento) {
+						return moment(dataEvento).format('LL');
+					}
+			},
+			{ data: 'congregacao.nome' }
+		]
+	});
+});
 
 
 

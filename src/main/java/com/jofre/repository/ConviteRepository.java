@@ -47,11 +47,20 @@ public interface ConviteRepository extends JpaRepository<Convite, Long> {
 	@Query("select "
 			+ "c "
 			+ "from Convite c "
-			+ "left join c.congregacoes e "
 			+ " where c.congregacao.id = :congregacao "
 			+ " and ativo = true "
 			+ " and c.dataEvento >= cast(now() as date) ")
 	Page<HistoricoConvite> findAllConviteLiberadosByCongregacao(Pageable pageable, Long congregacao);
+
+	
+	@Query("select "
+			+ "c "
+			+ "from Convite c "
+			+ "join c.congregacoes e "
+			+ " where e.id = :congregacao "
+			+ " and c.ativo = true "
+			+ " and c.dataEvento >= cast(now() as date) ")
+	Page<HistoricoConvite> findAllConviteRecebidosByCongregacao(Pageable pageable, Long congregacao);
 
 
 	

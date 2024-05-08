@@ -14,7 +14,7 @@
 				width="72" height="72">
 			<div class="container">
 				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
-				<p class="lead text-muted">Especialistas e Especialistas</p>
+				<p class="lead text-muted">Convidados</p>
 			</div>
 		</section>
 
@@ -29,13 +29,14 @@
 						<form th:action="${convite.id == null} ? @{/convites/salvar} : @{/convites/editar}" 
 								th:object="${convite}" method="POST" class="was-validated">
 							
+							<h1>Congregação: <span th:text="*{congregacao.nome}"></span></h1>
+							
 					<div class="mb-3">
-	                        <label for="tipoevento">Tipo de convite</label>
-	                        <select id="tipoevento" class="form-control" th:field="*{tipoevento}" required>
+	                        <label for="tipo">Tipo de convite</label>
+	                        <select id="tipo" class="form-control" th:field="*{tipo}" required>
 	                            <option value="">Selecione...</option>
-	                            <option value= "1">Avivamento</option>
-	                            <option value= "2">Festividade</option>
-	                        </select>
+	                            <option th:each="t : ${tipos}" th:value="${t.id}" th:text="${t.nome}"></option>
+	                          </select>
 	                        <div class="invalid-feedback">
 	                    </div>
 	                    </div>
@@ -49,32 +50,7 @@
 								</div>
 							</div>
 							
-								<div class="form-row">
-								<div class="form-group col-md-12">
-									<small class="form-text text-muted">Selecione 
-										a área referente as congregações.</small>
-									<input type="number" class="form-control"
-										id="area" placeholder="Area..."
-										th:field="*{area}" required min="1" max="12" />
-									<div class="invalid-feedback">
-								      Área é obrigatória.
-								    </div>
-								</div>
-							</div>
-	
-							<div class="form-row">
-								<div class="form-group col-md-12">
-									<div class="card">
-									  <div class="card-header">
-									    Indique a congregação
-									  </div>
-									  <div class="card-body" id="congregacoes" required>										  									    
-											<!-- options by jQuery -->
-									  </div>									  							  
-									</div>
-								</div>
-							</div>
-							
+														
 							<div class="mb-3">
 								<label for="congregacoes">Convidados</label>
 								<select id="congregacoes" class="custom-select" size="4"
