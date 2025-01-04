@@ -60,7 +60,6 @@ $(document).ready(function() {
             {data : 'id'},
             {data : 'nome'},
             {data : 'telefone'},
-            {data : 'ciclo.nome'},
              {data: 'dataNascimento', render:
                 function( dataNascimento ) {
                     return moment(dataNascimento).format('DD [de] MMMM');
@@ -103,7 +102,6 @@ $(document).ready(function() {
             {data : 'id'},
             {data : 'nome'},
             {data : 'telefone'},
-            {data : 'ciclo.nome'},
              {data: 'dataNascimento', render:
                 function( dataNascimento ) {
                     return moment(dataNascimento).format('DD [de] MMMM');

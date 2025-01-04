@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+
+		<section class="jumbotron text-center">
+			<img class="d-block mx-auto" th:src="@{/image/ieadpe.png}"
+				width="72" height="72">
+			<div class="container">
+				<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
+				<p class="lead text-muted">Controle de Aulas</p>
+			</div>
+		</section>
+
+		<div class="album py-5 bg-light">
+			<div class="container">
+
+				<div class="d-flex justify-content-center">
+					<div class="col-md-8">
+
+						<div th:replace="~{fragments/alert :: alerta-sucesso}"></div>
+
+						<form th:action="${aula.id == null} ? @{/aulas/salvar} : @{/aulas/editar}" 
+								th:object="${aula}" method="POST" class="was-validated">
+						
+					<div class="mb-3">
+								<label for="nome">Data aula</label>
+								<div class="input-group">
+									<input type="date" class="form-control" id="dataAula"
+										   aria-describedby="validationTooltipUsernamePrepend"
+										   th:field="*{dataAula}" required />
+									<div class="invalid-feedback">Data requerida.</div>
+								</div>
+							</div>	
+						
+					<div class="mb-3">
+	                        <label for="licao">Lição</label>
+	                        <select id="licao" class="form-control" th:field="*{licao}" required>
+	                            <option value="">Lição...</option>
+	                            <option th:each="l : ${licoes}" th:value="${l.id}" th:text="${l.nome}"></option>
+	                          </select>
+	                        <div class="invalid-feedback">
+	                    </div>
+	                    </div>
+								<div class="mb-3">
+								<label for="status">Status Aula</label>
+								<select id="status" class="form-control"
+										th:field="*{status}" required>
+										<option value="">Status...</option>
+									<option value="0">Parcial</option>
+									<option value="1">Concluída</option>
+								</select>
+								<input type="hidden" value="" name="status" />
+								<div class="invalid-feedback">Campo necessário.</div>
+							</div>	
+							
+					<div class="mb-3">
+	                        <label for="professor">Professor</label>
+	                        <select id="professor" class="form-control" th:field="*{professor}" required>
+	                            <option value="">Professor...</option>
+	                            <option th:each="p : ${professores}" th:value="${p.id}" th:text="${p.nome}"></option>
+	                          </select>
+	                        <div class="invalid-feedback">
+	                    </div>
+	                    </div>
+							
+						
+							<div class="mb-3">
+								<label for="convertidos">Alunos</label>
+								<select id="convertidos" class="custom-select" size="4"
+										th:field="*{convertidos}" multiple required>
+									<option th:each="c : ${convertidos}" th:value="${c.id}"
+											th:text="${c.nome}"></option>
+								</select>
+								<input type="hidden" value="" name="convertidos" />
+								<div class="invalid-feedback">Pelo menos um aluno é requerido.</div>
+							</div>
+							<input type="hidden" th:field="*{id}"> 
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary"
+										data-toggle="tooltip" data-placement="right" title="Salvar">
+										<i class="fas fa-save"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</main>
+
+	</section>
+	<script	th:src="@{/js/aula.js(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript">
+	</script>
+</body>
+</html>

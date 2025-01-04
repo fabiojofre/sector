@@ -3,6 +3,8 @@ package com.jofre.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -24,12 +26,13 @@ public class Produto extends AbstractEntity {
 	
 	@Column(name = "ativo")
 	private Boolean ativo;
-	
-	@Column(name = "controla_estoque")
-	private Boolean controlaEstoque;
-	
+		
 	@Column(name = "unidade",nullable = false)
 	private String unidade;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_grupo")
+	private Grupo grupo;
 
 	public String getDescricao() {
 		return descricao;
@@ -71,13 +74,6 @@ public class Produto extends AbstractEntity {
 		this.ativo = ativo;
 	}
 
-	public Boolean getControlaEstoque() {
-		return controlaEstoque;
-	}
-
-	public void setControlaEstoque(Boolean controlaEstoque) {
-		this.controlaEstoque = controlaEstoque;
-	}
 
 	public String getUnidade() {
 		return unidade;
@@ -85,6 +81,14 @@ public class Produto extends AbstractEntity {
 
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 	
 	

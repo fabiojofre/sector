@@ -49,13 +49,20 @@ public class Congregacao extends AbstractEntity {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "congregacao")
+	private List<Congregado> congregados;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "congregacao")
 	private List<Convite> convites;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "congregacao")
 	private List<Pessoa> pessoas;
 
-
+	@JsonIgnore
+	@OneToMany(mappedBy = "congregacao")
+	private List<Professor> professores;
+	
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
@@ -152,8 +159,22 @@ public class Congregacao extends AbstractEntity {
 	public void setConvertidos(List<Convertido> convertidos) {
 		this.convertidos = convertidos;
 	}
-	
 
+	public List<Congregado> getCongregados() {
+		return congregados;
+	}
+
+	public void setCongregados(List<Congregado> congregados) {
+		this.congregados = congregados;
+	}
+
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
 
 		
 }

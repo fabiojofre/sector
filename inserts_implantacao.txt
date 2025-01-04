@@ -4,6 +4,8 @@ insert into perfis(descricao)values('ESPECIALISTA');
 insert into perfis(descricao)values('PESSOA');
 insert into perfis(descricao) values('DISCIPULADO');
 insert into perfis(descricao) values('CAMPANHA');
+insert into perfis(descricao) values('ALMOXARIFADO');
+insert into perfis(descricao) values('ASSISTENTE');
 
 insert into usuarios(email,senha,ativo)values('fabiojofre@gmail.com','$2a$10$JIzo6BPySa9vCpN5nn5FO.qrI9Cq/a7xK7S1wbekNjb0CIP.XqVF2',true)
 
@@ -45,4 +47,59 @@ insert into ciclos(nome)values('Avançado');
 INSERT INTO tipos(nome)VALUES ('Aniversários');
 INSERT INTO tipos(nome)VALUES ('Avivamento');
 INSERT INTO tipos(nome)VALUES ('Cruzada');
+
+insert into origens(nome)values('Berço Evangélico');
+insert into origens(nome)values('Evangelização');
+insert into origens(nome)values('Outro Setor');
+insert into origens(nome)values('Outra Denominação');
+
+
+insert into limitacoes(nome)values('Nenhuma');
+insert into limitacoes(nome)values('Mobilidade Reduzida');
+insert into limitacoes(nome)values('Cadeirante');
+insert into limitacoes(nome)values('Acamado(a)');
+insert into limitacoes(nome)values('Mental/Intelectual');
+insert into limitacoes(nome)values('Auditiva');
+
+
+
+insert into graus(nome) values('Não Alfabetizado');
+insert into graus(nome) values('Alfabetizado');
+insert into graus(nome) values('Fundamental Incompleto');
+insert into graus(nome) values('Fundamental Completo');
+insert into graus(nome) values('Ensino Médio Incompleto');
+insert into graus(nome) values('Ensino Médio Completo');
+insert into graus(nome) values('Médio Técnico Incompleto');
+insert into graus(nome) values('Médio Técnico Completo');
+insert into graus(nome) values('Superior Incompleto');
+insert into graus(nome) values('Superior Completo');
+insert into graus(nome) values('Pós Graduação');
+insert into graus(nome) values('Mestrado');
+insert into graus(nome) values('Doutorado');
+insert into graus(nome) values('Pós Doutorado');
+
+
+
+insert into licoes(nome) values('Aula 01');
+insert into licoes(nome) values('Aula 02');
+insert into licoes(nome) values('Aula 03');
+insert into licoes(nome) values('Aula 04');
+insert into licoes(nome) values('Aula 05');
+insert into licoes(nome) values('Aula 06');
+insert into licoes(nome) values('Aula 07');
+insert into licoes(nome) values('Aula 08');
+insert into licoes(nome) values('Aula 09');
+insert into licoes(nome) values('Aula 10');
+insert into licoes(nome) values('Aula 11');
+insert into licoes(nome) values('Aula 12');
+insert into licoes(nome) values('Aula 13');
+insert into licoes(nome) values('Aula 14');
+insert into licoes(nome) values('Aula 15');
+insert into licoes(nome) values('Aula 16');
+insert into licoes(nome) values('Aula 17');
+insert into licoes(nome) values('Aula 18');
+insert into licoes(nome) values('Aula 19');
+insert into licoes(nome) values('Aula 20');
+insert into licoes(nome) values('Aula 21');
+insert into licoes(nome) values('Aula 22');
 

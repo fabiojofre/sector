@@ -1,13 +1,19 @@
 package com.jofre.domain;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -57,9 +63,6 @@ public class Convertido extends AbstractEntity{
 	@JoinColumn(name= "id_estadocivil")
 	private EstadoCivil estadocivil;
 	
-	@ManyToOne
-	@JoinColumn(name= "id_ciclo")
-	private Ciclo ciclo;
 	
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
@@ -82,6 +85,16 @@ public class Convertido extends AbstractEntity{
 	private LocalDate dataMatriculado;
 	
 
+	// evita recursividade quando o json de resposta for criado para a datatables.
+			@JsonIgnore
+			@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+			@JoinTable(
+					name = "convertidos_tem_aulas",
+					joinColumns = @JoinColumn(name = "id_convertido", referencedColumnName = "id"),
+					inverseJoinColumns = @JoinColumn(name = "id_aula", referencedColumnName = "id")
+		    )
+		private Set<Aula>aulas;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -219,13 +232,6 @@ public class Convertido extends AbstractEntity{
 		this.estadocivil = estadocivil;
 	}
 
-	public Ciclo getCiclo() {
-		return ciclo;
-	}
-
-	public void setCiclo(Ciclo ciclo) {
-		this.ciclo = ciclo;
-	}
 
 	public LocalDate getDataMatriculado() {
 		return dataMatriculado;
@@ -233,6 +239,14 @@ public class Convertido extends AbstractEntity{
 
 	public void setDataMatriculado(LocalDate dataMatriculado) {
 		this.dataMatriculado = dataMatriculado;
+	}
+
+	public Set<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(Set<Aula> aulas) {
+		this.aulas = aulas;
 	}
 	
 	

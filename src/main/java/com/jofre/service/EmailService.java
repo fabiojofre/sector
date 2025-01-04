@@ -29,7 +29,7 @@ public class EmailService {
 		context.setVariable("titulo", "Bem vindo a Sector (Sistema de Gestão)");
 		context.setVariable("texto", "Precisamos que confirme seu cadastro, clicando no link abaixo");
 		context.setVariable("linkConfirmacao", 
-				"http://sebd.ddns.net:8084/u/confirmacao/cadastro?codigo=" + codigo);
+				"https://ieadpesetor2.com.br/u/confirmacao/cadastro?codigo=" + codigo);
 		
 		String html = template.process("email/confirmacao", context);
 		helper.setTo(destino);

@@ -75,6 +75,11 @@ public class CongregacaoService {
 		return repository.findAll();
 	} 
 	
+	@Transactional(readOnly = true)
+	public List<Congregacao> buscarOrdem() {
+		return repository.findCongregacaoOrdem();
+	}
+	
 	//faz busca das congregações disponíveis por data e áreas e repetidas num período 
 	@Transactional(readOnly = true)
 	public List<Congregacao> buscarDisponiveis(Long convite) {

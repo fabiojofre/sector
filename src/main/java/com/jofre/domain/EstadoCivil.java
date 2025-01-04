@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -21,6 +20,10 @@ public class EstadoCivil extends AbstractEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "estadocivil")
 	private List<Convertido> convertidos;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "estadocivil")
+	private List<Congregado> congregados;
 
 	public String getNome() {
 		return nome;
@@ -36,6 +39,14 @@ public class EstadoCivil extends AbstractEntity {
 
 	public void setConvertidos(List<Convertido> convertidos) {
 		this.convertidos = convertidos;
+	}
+
+	public List<Congregado> getCongregados() {
+		return congregados;
+	}
+
+	public void setCongregados(List<Congregado> congregados) {
+		this.congregados = congregados;
 	}
 	
 	

@@ -37,13 +37,21 @@
 											id="nome" placeholder="Ex: C. O. Dirigente" required />
 										<div class="invalid-feedback">Nome é requerido.</div>
 									</div>
-								<div class="form-group col-md-6">
+									
+									<div class="form-group col-md-2">
+										<label for="sigla" class="form-group">Sigla</label>
+										<input type="text" class="form-control" th:field="*{sigla}"
+											id="sigla" maxlength="6" placeholder="Ex: Pr." />
+									</div>
+									
+								<div class="form-group col-md-4">
 									<label for="estilo">Estilo</label> <select	id="estilo" 
 									class="form-control" th:field="*{estilo}" required>
 										<option value="">Selecione...</option>
 										<option value="ECLESIASTICO">Eclesiástico</option>
 										<option value="LOUVOR">Louvor</option>
 										<option value="DEPARTAMENTO">Departamento</option>
+										<option value="OUTRO">Outro</option>
 									</select>
 									<div class="invalid-feedback">Estilo do cargo é requerido</div>
 								</div>

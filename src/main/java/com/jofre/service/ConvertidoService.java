@@ -29,7 +29,7 @@ public class ConvertidoService {
 
 	@Transactional(readOnly = false)
 	public void salvar(Convertido convertido) {
-
+		convertido.setInativo(false);
 		repository.save(convertido);
 	}
 
@@ -64,7 +64,6 @@ public class ConvertidoService {
 			co.setMatriculado(true);
 			co.setDataMatriculado(LocalDate.now());
 			co.setEstadocivil(convertido.getEstadocivil());
-			co.setCiclo(convertido.getCiclo());
 			co.setBatismo(convertido.getBatismo());
 			co.setDaUniao(convertido.getDaUniao());
 			co.setArea(convertido.getCongregacao().getArea());
@@ -136,6 +135,11 @@ public class ConvertidoService {
 		Page<HistoricoConvertido> page = repository.findHistoricoConcluidoCongregacao(congregacao,
 				datatables.getPageable());
 		return datatables.getResponse(page);
+	}
+
+	public List<Convertido> buscarTodosConvertidosPorCongregacao(Long congregacao) {
+	
+		return repository.findAllConvertidoPorCongregacao(congregacao);
 	}
 
 

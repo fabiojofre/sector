@@ -6,8 +6,8 @@ public enum PerfilTipo {
 	PESSOA(3, "PESSOA"),
 	DISCIPULADO(4,"DISCIPULADO"),
 	CAMPANHA(5,"CAMPANHA"),
-	ASSISTENTE(6, "ASSISTENTE");
-	
+	ALMOXARIFADO(6, "ALMOXARIFADO"),
+	ASSISTENTE(7, "ASSISTENTE");
 	
 	private long cod;
 	private String desc;

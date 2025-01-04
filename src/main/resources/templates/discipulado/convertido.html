@@ -42,15 +42,16 @@
 								</div>
 							</div>
 
-							<div class="mb-3">
+								<div class="mb-3">
 								<label for="nome">Telefone</label>
 								<div class="input-group">
-									<input type="tel" class="form-control" id="telefone" placeholder="insira seu telefone"
+									<input type="number" min="899999999" max="99999999999" class="form-control" id="telefone" placeholder="insira seu telefone"
 											aria-describedby="validationTooltipUsernamePrepend"
 										    th:field="*{telefone}" required />
 									<div class="invalid-feedback">Telefone é requerido.</div>
 								</div>
 							</div>
+
 
 							<div class="mb-3">
 								<label for="nome">Data de Nascimento</label>
@@ -82,17 +83,7 @@
 									<div class="invalid-feedback">Estado civil é requerido.</div>
 								</div>
 	       	             							
-							 <div class="mb-3">
-								<label for="cliclo">Ciclo Atual</label> 
-									<select id="ciclo" class="form-control" th:field="*{ciclo}" required>
-									<option value="">Selecione</option>
-									<option th:each="c : ${ciclos}" th:value="${c.id}"
-											th:text="${c.nome}"></option>
-									</select>
-									<div class="invalid-feedback">Ciclo é requerido.</div>
-								</div>
-	       	             
-	       	                
+							 
 							<div class="mb-3">
 								<label for="nome">Obs.</label>
 								<div class="input-group">

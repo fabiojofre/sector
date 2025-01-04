@@ -215,7 +215,7 @@
 	<script th:inline="javascript" th:fragment="inlinescript">
 		$(document).ready(function () {
 			moment.locale('pt-BR');
-			var idEspecialista = [[${especialista.id != null ? especialista.id : 0}]];
+			var idEspecialista = [['${especialista.id != null ? especialista.id : 0}']];
 			if (idEspecialista != 0) {
 				var table = $('#table-especialista-especializacao').DataTable({
 					searching: false,

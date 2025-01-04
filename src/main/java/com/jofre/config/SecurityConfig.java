@@ -30,6 +30,9 @@ public class SecurityConfig {
     private static final String PESSOA = PerfilTipo.PESSOA.getDesc();
     private static final String DISCIPULADO = PerfilTipo.DISCIPULADO.getDesc();
     private static final String CAMPANHA = PerfilTipo.CAMPANHA.getDesc();
+    private static final String ALMOXARIFADO = PerfilTipo.ALMOXARIFADO.getDesc();
+    private static final String ASSISTENTE = PerfilTipo.ASSISTENTE.getDesc();
+    
 	 
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -41,11 +44,9 @@ public class SecurityConfig {
 			.requestMatchers("/u/novo/cadastro", "/u/cadastro/realizado", "/u/cadastro/pessoa/salvar").permitAll()
 			.requestMatchers("/u/confirmacao/cadastro").permitAll()
 			.requestMatchers("/u/p/**").permitAll()
-			.requestMatchers("/congregacoes/**").permitAll()
-			.requestMatchers("/convertidos/**").permitAll()
 			
 			// acessos privados admin
-			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA, DISCIPULADO, CAMPANHA)
+			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA, DISCIPULADO, CAMPANHA, ASSISTENTE)
 			.requestMatchers("/u/**").hasAuthority(ADMIN)
 
 			// acessos privados especialistas
@@ -55,18 +56,24 @@ public class SecurityConfig {
 //			.requestMatchers("/agendamentos/**").hasAuthority(ESPECIALISTA)
 
 			// acessos privados pessoas
-			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO)
-			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO,CAMPANHA)
+			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO,ASSISTENTE)
+			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO,CAMPANHA, ASSISTENTE)
 			
-			.requestMatchers("/discipulados/**").hasAnyAuthority(DISCIPULADO,CAMPANHA)
+			.requestMatchers("/discipulados/**").hasAnyAuthority(DISCIPULADO,CAMPANHA,ASSISTENTE)
 			
 			// acessos privados especialidades
 			.requestMatchers("/especialidades/datatables/server/especialista/*").hasAnyAuthority(ESPECIALISTA, ADMIN)
 			.requestMatchers("/especialidades/titulo").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA)
+			
+			.requestMatchers("/congregacoes/**").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA, DISCIPULADO,ASSISTENTE)
+			.requestMatchers("/convertidos/**").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA, DISCIPULADO,ASSISTENTE)
 			.requestMatchers("/especialidades/**").hasAuthority(ADMIN)
 			
-			// acessos privados congregações
-			.requestMatchers("/congregacoes/**").hasAuthority(ADMIN)
+			// acessos privados admins
+			.requestMatchers("/cargos/**").hasAuthority(ADMIN)
+			.requestMatchers("/origens/**").hasAuthority(ADMIN)
+			.requestMatchers("/limitacoes/**").hasAuthority(ADMIN)
+			.requestMatchers("/graus/**").hasAuthority(ADMIN)
 			.anyRequest().authenticated()
 		)
 		.formLogin()

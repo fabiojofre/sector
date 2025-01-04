@@ -1,8 +1,13 @@
 package com.jofre.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -15,6 +20,17 @@ public class Cargo extends AbstractEntity {
 
 	@Column(name = "estilo")
 	private String estilo;
+	
+	@Column(name = "sigla")
+	private String sigla;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "congregados_tem_cargos", 
+			joinColumns = @JoinColumn(name = "cargo_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "congregado_id", referencedColumnName = "id")
+    )
+	private List<Congregado> congregados;
 
 	public String getNome() {
 		return nome;
@@ -31,6 +47,23 @@ public class Cargo extends AbstractEntity {
 	public void setEstilo(String estilo) {
 		this.estilo = estilo;
 	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public List<Congregado> getCongregados() {
+		return congregados;
+	}
+
+	public void setCongregados(List<Congregado> congregados) {
+		this.congregados = congregados;
+	}
+
 	
 	
 }

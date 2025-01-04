@@ -50,16 +50,19 @@ public class ConviteController {
 		return "convite/convite";
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
+	@GetMapping({ "/convidar"})
+	public String abrirConvidar(Convite convite) {
+		return "convite/conviteEditar";
+	}
+	
 	// salvar convite
 	@PreAuthorize("hasAnyAuthority('ESPECIALISTA','CAMPANHA')")
 	@PostMapping("/salvar")
 	public String salvar(Convite convite, RedirectAttributes attr, @AuthenticationPrincipal User user) {
-	
-		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
-		convite.setPessoa(pessoa);
-		convite.setCongregacao(pessoa.getCongregacao());
-		convite.setArea(pessoa.getCongregacao().getArea());
-		convite.setAtivo(false);
+
+		convite.setAtivo(true);
+		convite.setLiberado(true);
 		service.salvar(convite);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso!");
 

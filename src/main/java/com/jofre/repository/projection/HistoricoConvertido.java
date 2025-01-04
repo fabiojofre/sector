@@ -1,8 +1,9 @@
 package com.jofre.repository.projection;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import com.jofre.domain.Ciclo;
+import com.jofre.domain.Aula;
 import com.jofre.domain.Congregacao;
 import com.jofre.domain.EstadoCivil;
 import com.jofre.domain.Pessoa;
@@ -13,13 +14,15 @@ public interface HistoricoConvertido {
 	
 	String getNome();
 	
-	String getTelefone();
+	Long getTelefone();
+	
+
+	LocalDate getDataNascimento(); 
 	
 	String getEndereco();
 	
 	LocalDate getDataConversao();
 	
-	LocalDate getDataNascimento(); 
 	
 	Congregacao getCongregacao();
 	
@@ -27,7 +30,7 @@ public interface HistoricoConvertido {
 	
 	EstadoCivil getEstadoCivil();
 	
-	Ciclo getCiclo();
-	
 	LocalDate getDataConclusao();
+	
+	List<Aula>getAulas();
 }

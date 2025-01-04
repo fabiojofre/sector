@@ -19,7 +19,12 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admistrador</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<a class="dropdown-item" th:href="@{/especialidades}">Especialidades</a> 
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/cargos}">Cargos</a> 
+							<a class="dropdown-item" th:href="@{/profissoes}">Profissões</a> 
+							<a class="dropdown-item" th:href="@{/origens}">Origens</a> 
+							<a class="dropdown-item" th:href="@{/limitacoes}">Limitações</a> 
+							<a class="dropdown-item" th:href="@{/graus}">Gurau de Intrução</a>
 							<a class="dropdown-item" th:href="@{/congregacoes}">Congregações</a> 
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/u/novo/cadastro/usuario}">Cadastro de Usuários</a>
@@ -33,10 +38,16 @@
 							<a class="dropdown-item" th:href="@{/especialistas/dados}">Dados Cadastrais</a>
 							<a class="dropdown-item" th:href="@{/u/editar/senha}">Editar Senha</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/convites}">Carta Convite</a>
+							<a class="dropdown-item" th:href="@{/congregados}">Cadastrar Membro</a>
+							<a class="dropdown-item" th:href="@{/congregados/historico/congregados}">Listagem de Membros</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/profissoes}">Profissões</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/agendamentos/historico/consultas}">Consultas Agendadas</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown" sec:authorize="hasAuthority('PESSOA')"><a
+					<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('PESSOA','DISCIPULADO','ASSISTENTE')"><a
 						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Membro</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
@@ -58,26 +69,55 @@
 						<a class="dropdown-item" th:href="@{/discipulados}">Cadastrar Discipulado</a>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/discipulado}">Sala de Aula</a>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/convertido}">Novos Convertidos</a>
-							<div class="dropdown-divider"></div>
-							
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/aulas}">Chamada</a>
+						<a class="dropdown-item" th:href="@{/aulas/historico/aula}">Lista de Presença</a>	
 						</div>
 					</li>					
 				
-				<li class="nav-item dropdown" sec:authorize="hasAuthority('CAMPANHA')"><a
+				<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('CAMPANHA','ASSISTENTE')"><a
 						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Campanha</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
+						<a class="dropdown-item" th:href="@{/professores}">Prof. Discipulado</a>
 						<a class="dropdown-item" th:href="@{/convertidos}">Cadastrar Convertido</a>
-						<a class="dropdown-item" th:href="@{/convertidos/historico/convertido}">Novos Convertidos</a>
+						<a class="dropdown-item" th:href="@{/convertidos/historico/convertido}">Lista Novos Convertidos</a>
+						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/discipulado}">Sala de Aula</a>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/concluido}">Formados</a>
-						<a class="dropdown-item" th:href="@{/convites}">Carta Convite</a>
+						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/convites/historico/liberados}">Meus Eventos</a>
+						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/convites/historico/recebidos}">Agenda</a>
-							<div class="dropdown-divider"></div>
 							
 						</div>
-					</li>					
+					</li>	
+				<li class="nav-item dropdown" sec:authorize="hasAuthority('ALMOXARIFADO')"><a
+						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Almoxarifado</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown03">
+						<a class="dropdown-item" th:href="@{/grupos}">Cadastrar Grupos</a>
+						<a class="dropdown-item" th:href="@{/produtos}">Cadastrar Produtos</a>
+						<a class="dropdown-item" th:href="@{/produtos/historico/produto}">Listagem Produtos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/discipulados/historico/discipulado}">Aguardando 01</a>
+						<a class="dropdown-item" th:href="@{/discipulados/historico/concluido}">Aguardando 02</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/convites/historico/liberados}">Aguardando 03</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/convites/historico/recebidos}">Aguardando 04</a>
+							
+						</div>
+					</li>	
+					
+					<li class="nav-item dropdown" sec:authorize="hasAuthority('ASSISTENTE')"><a
+						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Assistente</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown03">
+							<a class="dropdown-item" th:href="@{/congregados}">Cadastrar Membro</a>
+							<a class="dropdown-item" th:href="@{/congregados/historico/congregados}">Listagem de Membros</a>
+						</div>
+					</li>				
 				</ul>
 
 				<form class="form-inline mt-2 mt-md-0" sec:authorize="!isAuthenticated()">

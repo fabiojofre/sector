@@ -56,8 +56,7 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	@Query("select c.id as id, "
 			+ "c.nome as nome,"
 			+ "c.telefone as telefone, "
-			+ "c.dataNascimento as dataNascimento,"
-			+ "c.ciclo as ciclo "
+			+ "c.dataNascimento as dataNascimento "
 			+ "from Convertido c "
 			+ "where c.congregacao.id = :congregacao "
 			+ "and c.matriculado = true "
@@ -93,14 +92,21 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 			+ "c.nome as nome, "
 			+ "c.telefone as telefone, "
 			+ "c.dataNascimento as dataNascimento,"
-			+ "c.dataConclusao as dataConclusao, "
-			+ "c.ciclo as ciclo "
+			+ "c.dataConclusao as dataConclusao "
 			+ "from Convertido c "
 			+ "where c.congregacao.id = :congregacao "
 			+ "and c.matriculado = true "
 			+ "and c.concluinte = true  "
 			+ "and (c.inativo =  false or c.inativo = null) ")
 	Page<HistoricoConvertido> findHistoricoConcluidoCongregacao(Long congregacao, Pageable pageable);
+
+	
+	@Query("select c from Convertido c "
+			+ "where c.congregacao.id = :congregacao "
+			+ "and matriculado = true "
+			+ "and inativo = false "
+			+ "and (concluinte = null or concluinte = false)")
+	List<Convertido> findAllConvertidoPorCongregacao(Long congregacao);
 
 		
 }

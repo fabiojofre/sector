@@ -2,7 +2,7 @@ $(document).ready(function () {
 	moment.locale('pt-BR');
     var table = $('#table-cargo').DataTable({
     	searching: true,
-    	order: [[ 1, "asc" ]],
+    	order: [[ 0, "asc" ]],
     	lengthMenu: [5, 10],
         processing: true,
         serverSide: true,

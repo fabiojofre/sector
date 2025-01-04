@@ -21,9 +21,4 @@ public interface CargoRepository extends JpaRepository<Cargo, Long> {
 	@Query("select c from Cargo c where c.nome IN :nomes")
 	Set<Cargo> findBynomes(String[] nomes);
 
-//	@Query("select c from Cargo c "
-//			+ "join c.membros m "
-//			+ "where m.id = :id") 
-//	Page<Cargo> findByIdMembro(Long id, Pageable pageable);
-
 }
