@@ -58,6 +58,7 @@ public class ConvertidoService {
 		co.setTelefone(convertido.getTelefone());
 		co.setEndereco(convertido.getEndereco());
 		co.setCongregacao(convertido.getCongregacao());
+		co.setOrigemConversao(convertido.getOrigemConversao());
 		co.setDataNascimento(convertido.getDataNascimento());
 		co.setDataConversao(convertido.getDataConversao());
 		if(!(convertido.getMatriculado() == null || convertido.getMatriculado() == false)) {

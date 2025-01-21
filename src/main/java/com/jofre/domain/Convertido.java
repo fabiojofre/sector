@@ -63,6 +63,10 @@ public class Convertido extends AbstractEntity{
 	@JoinColumn(name= "id_estadocivil")
 	private EstadoCivil estadocivil;
 	
+	@ManyToOne
+	@JoinColumn(name= "id_origem_conversao")
+	private OrigemConversao origemConversao;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
@@ -247,6 +251,14 @@ public class Convertido extends AbstractEntity{
 
 	public void setAulas(Set<Aula> aulas) {
 		this.aulas = aulas;
+	}
+
+	public OrigemConversao getOrigemConversao() {
+		return origemConversao;
+	}
+
+	public void setOrigemConversao(OrigemConversao origemConversao) {
+		this.origemConversao = origemConversao;
 	}
 	
 	

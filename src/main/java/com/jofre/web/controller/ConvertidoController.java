@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jofre.domain.Agendamento;
 import com.jofre.domain.Congregacao;
 import com.jofre.domain.Convertido;
-import com.jofre.domain.Especialidade;
+import com.jofre.domain.OrigemConversao;
 import com.jofre.domain.PerfilTipo;
 import com.jofre.domain.Pessoa;
 import com.jofre.service.CongregacaoService;
 import com.jofre.service.ConvertidoService;
+import com.jofre.service.OrigemConversaoService;
 import com.jofre.service.PessoaService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +38,9 @@ public class ConvertidoController {
 	@Autowired
 	private CongregacaoService congregacaoService;
 	
+	@Autowired
+	private OrigemConversaoService origemConversaoService;
+	
 	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE')")
 	@GetMapping({ "", "/" })
 	public String abrir(Convertido convertido) {
@@ -51,11 +54,14 @@ public class ConvertidoController {
 	public String salvar(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
 		Long id_congreg = convertido.getCongregacao().getId();
+		Long id_origem = convertido.getOrigemConversao().getId();
 		Congregacao congregacao = congregacaoService.buscarPorId(id_congreg);
-
+		OrigemConversao origemConversao = origemConversaoService.buscarPorId(id_origem);
+		
 //		System.out.println("O nome da congregacao é :"+convertido.getCongregacao().toString());
 		convertido.setCongregacao(congregacao);
 		convertido.setPessoa(pessoa);
+		convertido.setOrigemConversao(origemConversao);
 		convertido.setConvertido(true);
 		service.salvar(convertido);
 		attr.addFlashAttribute("sucesso", "Convertido cadastrado com sucesso.");
@@ -106,9 +112,12 @@ public class ConvertidoController {
 			System.out.println("Já nesse caso, o id desse método é: "+convertido.getId());
 			Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
 			Long id_congreg = convertido.getCongregacao().getId();
+			Long id_origem = convertido.getOrigemConversao().getId();
 			Congregacao congregacao = congregacaoService.buscarPorId(id_congreg);
+			OrigemConversao origemConversao = origemConversaoService.buscarPorId(id_origem);
 			convertido.setPessoa(pessoa);
 			convertido.setCongregacao(congregacao);
+			convertido.setOrigemConversao(origemConversao);
 			service.editar(convertido,user.getUsername());
 			
 			attr.addFlashAttribute("sucesso", "Seu convertido foi alterado com sucesso.");

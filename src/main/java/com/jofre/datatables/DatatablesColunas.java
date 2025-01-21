@@ -20,6 +20,8 @@ public class DatatablesColunas {
 	
 	public static final String[] ORIGENS = {"id", "nome"};
 	
+	public static final String[] ORIGEM_CONVERSAO = {"id", "nome","inativo"};
+	
 	public static final String[] PROFESSOR = {"id","nome","telefone","congregacao.nome","dataNascimento"};
 		
 	public static final String[] LIMITACOES = {"id", "nome"};

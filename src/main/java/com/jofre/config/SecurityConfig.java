@@ -66,6 +66,7 @@ public class SecurityConfig {
 			.requestMatchers("/especialidades/titulo").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA)
 			
 			.requestMatchers("/congregacoes/**").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA, DISCIPULADO,ASSISTENTE)
+			.requestMatchers("/origens_conversao/**").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA, DISCIPULADO,ASSISTENTE)
 			.requestMatchers("/convertidos/**").hasAnyAuthority(ESPECIALISTA, ADMIN, PESSOA, CAMPANHA, DISCIPULADO,ASSISTENTE)
 			.requestMatchers("/especialidades/**").hasAuthority(ADMIN)
 			
