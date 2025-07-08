@@ -46,7 +46,7 @@ public class OrigemConversaoController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("origem_conversao", service.buscarPorId(id));
+		model.addAttribute("origemConversao", service.buscarPorId(id));
 		return "origem_conversao/origem_conversao";
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import com.jofre.domain.Aula;
 import com.jofre.domain.Congregacao;
 import com.jofre.domain.EstadoCivil;
+import com.jofre.domain.OrigemConversao;
 import com.jofre.domain.Pessoa;
 
 public interface HistoricoConvertido {
@@ -13,6 +14,8 @@ public interface HistoricoConvertido {
 	Long getId();
 	
 	String getNome();
+
+	OrigemConversao getOrigemConversao();
 	
 	Long getTelefone();
 	

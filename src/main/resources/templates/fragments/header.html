@@ -23,6 +23,7 @@
 							<a class="dropdown-item" th:href="@{/cargos}">Cargos</a> 
 							<a class="dropdown-item" th:href="@{/profissoes}">Profissões</a> 
 							<a class="dropdown-item" th:href="@{/origens}">Origens</a> 
+							<a class="dropdown-item" th:href="@{/origens_conversao}">Origens de Conversão</a> 
 							<a class="dropdown-item" th:href="@{/limitacoes}">Limitações</a> 
 							<a class="dropdown-item" th:href="@{/graus}">Gurau de Intrução</a>
 							<a class="dropdown-item" th:href="@{/congregacoes}">Congregações</a> 
@@ -42,12 +43,18 @@
 							<a class="dropdown-item" th:href="@{/congregados}">Cadastrar Membro</a>
 							<a class="dropdown-item" th:href="@{/congregados/historico/congregados}">Listagem de Membros</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/obreiros}">Cadastrar de Obreiros</a>
+							<a class="dropdown-item" th:href="@{/obreiros/listar}">Listagem de Obreiros</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/profissoes}">Profissões</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/agendamentos/historico/consultas}">Consultas Agendadas</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/convertidos/historico/convertido-setor}">Listagem Convertidos Congregação/Semana</a>
+							<a class="dropdown-item" th:href="@{/convertidos/historico/convertido-setor-area}">Listagem Convertidos Área/Semana</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('PESSOA','DISCIPULADO','ASSISTENTE')"><a
+					<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('PESSOA','ASSISTENTE')"><a
 						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Membro</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
@@ -59,7 +66,7 @@
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" th:href="@{/agendamentos/agendar}">Agendar Consulta</a>
 							<a class="dropdown-item" th:href="@{/agendamentos/historico/pessoa}">Histórico de Agendamentos</a>
-						</div>
+							</div>
 					</li>	
 					
 					<li class="nav-item dropdown" sec:authorize="hasAuthority('DISCIPULADO')"><a
@@ -70,22 +77,28 @@
 						<a class="dropdown-item" th:href="@{/discipulados/historico/discipulado}">Sala de Aula</a>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/convertido}">Novos Convertidos</a>
 						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/pessoas/dados}">Cadastrar Dados</a>
+							<a class="dropdown-item" th:href="@{/u/editar/senha}">Editar Senha</a>
+							<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/aulas}">Chamada</a>
 						<a class="dropdown-item" th:href="@{/aulas/historico/aula}">Lista de Presença</a>	
 						</div>
 					</li>					
 				
-				<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('CAMPANHA','ASSISTENTE')"><a
+				<li class="nav-item dropdown" sec:authorize="hasAnyAuthority('CAMPANHA')"><a
 						class="btn btn-dark dropdown-toggle" href="#" id="dropdown03"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Campanha</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
 						<a class="dropdown-item" th:href="@{/professores}">Prof. Discipulado</a>
 						<a class="dropdown-item" th:href="@{/convertidos}">Cadastrar Convertido</a>
-						<a class="dropdown-item" th:href="@{/convertidos/historico/convertido}">Lista Novos Convertidos</a>
+						<a class="dropdown-item" th:href="@{/convertidos/historico/convertido}">Listar Novos Convertidos</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/discipulado}">Sala de Aula</a>
 						<a class="dropdown-item" th:href="@{/discipulados/historico/concluido}">Formados</a>
 						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{/pessoas/dados}">Cadastrar Dados</a>
+							<a class="dropdown-item" th:href="@{/u/editar/senha}">Editar Senha</a>
+							<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/convites/historico/liberados}">Meus Eventos</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" th:href="@{/convites/historico/recebidos}">Agenda</a>
@@ -116,6 +129,8 @@
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
 							<a class="dropdown-item" th:href="@{/congregados}">Cadastrar Membro</a>
 							<a class="dropdown-item" th:href="@{/congregados/historico/congregados}">Listagem de Membros</a>
+						<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/convertidos/historico/convertido-area}">Listagem Convertidos por Área</a>
 						</div>
 					</li>				
 				</ul>

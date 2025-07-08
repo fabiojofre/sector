@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<head>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+
+		<main role="main">
+
+			<section class="jumbotron text-center">
+				<img class="d-block mx-auto mb-4" th:src="@{/image/ieadpe.png}" width="72" height="72">
+				<div class="container">
+					<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
+					<p class="lead text-muted">Cadastro de Obreiros</p>
+				</div>
+			</section>
+
+			<div class="album py-5 bg-light">
+				<div class="container">
+
+					<div class="d-flex justify-content-center">
+						<div class="col-md-8">
+
+							<div th:replace="~{fragments/alert}"></div>
+							<form th:action="@{/trabalhadores/salvar}" th:object="${obreiro}" method="POST"
+								class="was-validated">
+
+								<div class="form-group row">
+									<div class="form-group col-md-12">
+										<label for="nome" class="form-group">Nome obreiro</label>
+										<input type="text" class="form-control" th:field="*{nome}" id="nome"
+											placeholder="" required />
+										<div class="invalid-feedback">Nome é requerido.</div>
+									</div>
+								</div>
+									<div class="form-group row">
+									<div class="form-group col-md-4">
+										<label for="cartaoMembro" class="form-group">Cartão de Membro</label>
+										<input type="number" class="form-control" th:field="*{cartaoMembro}"
+											id="cartaoMembro"  max="99999999999" placeholder="" required />
+											<div class="invalid-feedback">Cartão de Membro é requerido.</div>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="whatsapp">Telefone com WhatsApp</label>
+										<input type="number" class="form-control" id="whatsapp"
+											placeholder="###########" min="10999999999" max="99999999999"
+											data-mask-reverse="true" th:field="*{whatsapp}"  required />
+										<div class="invalid-feedback">Telefone é requerido.
+										</div>
+									</div>
+									<div class="form-group col-md-4">
+								<label for="nome">Data de Nascimento</label>
+								<div class="input-group">
+									<input type="date" class="form-control" id="dataNascimento"
+										   aria-describedby="validationTooltipUsernamePrepend"
+										   th:field="*{dataNascimento}"/>
+								</div>
+							</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-4">
+											<label for="cargoEc">Cargo</label>
+											<select id="cargoEc" class="form-control" th:field="*{cargoEc}" required>
+												<option value="">Selecione...</option>
+												<option th:each="c : ${cargos_ec}" th:value="${c.id}"
+													th:text="${c.nome}" ></option>
+											</select>
+											<div class="invalid-feedback">Cargo é requerido.</div>
+										</div>
+
+										<div class="form-group col-md-4">
+											<label for="congregacao">Congregação</label>
+											<select id="congregacao" class="form-control" th:field="*{congregacao} " required>
+												<option value="">Selecione</option>
+												<option th:each="c : ${congregacoes}" th:value="${c.id}"
+													th:text="${c.nome}"></option>
+											</select>
+											<div class="invalid-feedback">Cargo é requerido.</div>
+										</div>
+									
+									
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<hr />
+										</div>
+									
+
+							
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<fieldset>
+												<legend>Consigo atender escalas para congregações de outras áreas, que
+													sejam de:</legend>
+
+												<div>
+													<input type="radio" id="todos" name="acesso" value="Todos"
+														checked />
+													<label for="todos">Fácil, moderado e difícil acesso(todas as
+														congregações)</label>
+												</div>
+
+												<div>
+													<input type="radio" id="facil" name="acesso" value="Fácil" />
+													<label for="facil">Apenas as de fácil acesso(com transporte
+														público)</label>
+												</div>
+
+												<div>
+													<input type="radio" id="moderado" name="acesso" value="Moderado" />
+													<label for="moderado">Fácil e moderado acesso(com transporte
+														particular)</label>
+												</div>
+											</fieldset>
+
+										</div>
+
+
+										<div class="form-group col-md-12">
+											<fieldset>
+												<legend>Disponibilidade para o Círculo de Oração:</legend>
+												<div>
+													<input type="radio" id="sim" name="circulo" value="Sim" checked />
+													<label for="sim">Sim</label>
+												</div>
+												<div>
+													<input type="radio" id="nao" name="circulo" value="Não" />
+													<label for="nao">Não</label>
+												</div>
+											</fieldset>
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<hr />
+										</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<input type="checkbox" id="trabalhoIntermitente" name="trabalhoIntermitente"
+												th:field="*{trabalhoIntermitente}" checked="false" />
+											<label for="trabalhoIntermitente"> Empregado em regime de Escala </label>
+										</div>
+									</div>
+									</div>
+
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<label for="escalaIntermitente">Tipo da Escala</label>
+											<select id="escalaIntermitente" class="form-control"
+												th:field="*{escalaIntermitente}">
+												<option value="">Selecione...</option>
+												<option value="1">Trabalha 1 dia e folga 1</option>
+												<option value="2">trabalha 1 dia e folga 2</option>
+												<option value="3">Trabalha 1 dia e folga 3</option>
+												<option value="4">Trabalha 1 dia e folga 4</option>
+												<option value="5">Trabalha 1 dia e folga 5</option>
+												<option value="6">Trabalha 1 dia e folga 6</option>
+												<option value="7">Outros</option>
+											</select>
+											<div class="invalid-feedback">
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label for="dataUltimaEscala">Data de saída da última escala</label>
+											<input type="date" class="form-control" id="dataUltimaEscala"
+												th:field="*{dataUltimaEscala}"
+												th:classappend="${#fields.hasErrors('dataUltimaEscala')} ? 'is-invalid'" />
+											<div class="invalid-feedback">
+												<span th:errors="*{dataUltimaEscala}"></span>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<fieldset>
+												<legend>Marque os dias que você pode ser escalado:</legend>
+
+												<div>
+													<input type="checkbox" id="domingo" name="diasDisponivel"
+														th:field="*{eDomingo}"/>
+													<label for="diasDisponivel"> Domingo </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="segunda" name="diasDisponivel"
+														th:field="*{eSegunda}" />
+													<label for="diasDisponivel"> Segunda </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="terca" name="diasDisponivel"
+														th:field="*{eTerca}" />
+													<label for="diasDisponivel"> Terça </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="quarta" name="diasDisponivel"
+														th:field="*{eQuarta}" />
+													<label for="diasDisponivel"> Quarta </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="quinta" name="diasDisponivel"
+														th:field="*{eQuinta}" />
+													<label for="diasDisponivel"> Quinta </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="sexta" name="diasDisponivel"
+														th:field="*{eSexta}" />
+													<label for="diasDisponivel"> Sexta </label>
+												</div>
+
+												<div>
+													<input type="checkbox" id="sabado" name="diasDisponivel"
+														th:field="*{eSabado}" />
+													<label for="diasDisponivel"> Sábado </label>
+												</div>
+
+											</fieldset>
+										</div>
+									</div>
+
+
+									<br>
+								</div>
+								<input type="hidden" th:field="*{id}" />
+
+								<div class="form-group row">
+									<div class="col-sm-10">
+										<button type="submit" class="btn btn-primary" data-toggle="tooltip"
+											data-placement="right" title="Salvar">
+											<i class="fas fa-save"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+
+							<hr />
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+	</section>
+	<script th:src="@{/js/trabalhador.js?(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+
+</html>

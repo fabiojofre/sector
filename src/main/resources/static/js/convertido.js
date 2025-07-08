@@ -54,6 +54,7 @@ $(document).ready(function() {
         columns : [
             {data : 'id'},
             {data : 'nome'},
+            {data : 'origemConversao.nome'},
             {data : 'telefone'},
             {data: 'dataConversao', render:
                 function( dataConversao ) {
@@ -80,9 +81,75 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+    moment.locale('pt-BR');
+    var table = $('#table-convertido-historico-area').DataTable({
+        searching : false,
+        lengthMenu : [ 10, 10 ],
+        processing : true,
+        serverSide : true,
+        responsive : true,
+        order: [0, 'asc'],
+        ajax : {
+            url : '/convertidos/datatables/server/historico-area',
+            data : 'data'
+        },
+        columns : [
+            {data : 'nome'},
+            {data : 'quantidade'}
+           
+        ]
+    });
+});
 
 
 
+
+$(document).ready(function() {
+    moment.locale('pt-BR');
+    var table = $('#table-convertido-historico-setor').DataTable({
+        searching : false,
+        lengthMenu : [ 5, 20 ],
+        processing : true,
+        serverSide : true,
+        responsive : true,
+        order: [1, 'asc'],
+        ajax : {
+            url : '/convertidos/datatables/server/historico-setor',
+            data : 'data'
+        },
+        columns : [
+            {data : 'nome'},
+            {data : 'area'},
+            {data : 'quantidade'}
+           
+        ]
+    });
+});
+
+
+
+
+$(document).ready(function() {
+    moment.locale('pt-BR');
+    var table = $('#table-convertido-historico-setor-area').DataTable({
+        searching : false,
+        lengthMenu : [ 12, 15 ],
+        processing : true,
+        serverSide : true,
+        responsive : true,
+        order: [0, 'asc'],
+        ajax : {
+            url : '/convertidos/datatables/server/historico-setor-area',
+            data : 'data'
+        },
+        columns : [
+            {data : 'area'},
+            {data : 'quantidade'}
+           
+        ]
+    });
+});
 
 
 

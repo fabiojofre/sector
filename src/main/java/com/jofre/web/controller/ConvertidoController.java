@@ -1,6 +1,9 @@
 
 package com.jofre.web.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +45,7 @@ public class ConvertidoController {
 	@Autowired
 	private OrigemConversaoService origemConversaoService;
 	
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE','ESPECIALISTA')")
 	@GetMapping({ "", "/" })
 	public String abrir(Convertido convertido) {
 
@@ -49,7 +53,7 @@ public class ConvertidoController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 	@PostMapping({ "/salvar" })
 	public String salvar(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 		Pessoa pessoa = pessoaService.buscarPorUsuarioEmail(user.getUsername());
@@ -70,15 +74,17 @@ public class ConvertidoController {
 	}
 
 	// abrir histórico de convertidos
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 	@GetMapping("/historico/convertido")
 	public String historico() {
 
 		return "convertido/historico-convertido";
 	}
 
+
+	
 	// localizar histórico de convertido por pessoa
-	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 	@GetMapping("/datatables/server/historico")
 	public ResponseEntity<?> historicoConvertidoPorEmail(HttpServletRequest request,
 			@AuthenticationPrincipal User user) {
@@ -88,13 +94,81 @@ public class ConvertidoController {
 			
 		}if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.CAMPANHA.getDesc()))) {
 			Pessoa pessoa =  pessoaService.buscarPorUsuarioEmail(user.getUsername());
-			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorPessoaCongregacao(pessoa.getCongregacao().getId(),pessoa.getId(), request));
+			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorCongregacao(pessoa.getCongregacao().getId(), request));
+		}
+		return ResponseEntity.badRequest().build();
+	}
+	//******************Área***************************
+	// abrir histórico de convertidos por área
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+	@GetMapping("/historico/convertido-area")
+	public String historicoArea() {
+
+		return "convertido/historico-convertido-area";
+	}	
+	
+	// localizar histórico de convertido por area
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+	@GetMapping("/datatables/server/historico-area")
+	public ResponseEntity<?> historicoConvertidoPorEmailArea(HttpServletRequest request,
+			@AuthenticationPrincipal User user) {
+		LocalDate data = LocalDate.now();
+		if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ASSISTENTE.getDesc()))) {
+			Pessoa pessoa =  pessoaService.buscarPorUsuarioEmail(user.getUsername());
+			return ResponseEntity.ok(service.bucarHistoricoConvertidoPorAreaEData(pessoa.getCongregacao().getArea(), request));
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
+	//****************Setor************************
+	
+	// abrir histórico de convertidos por área
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+		@GetMapping("/historico/convertido-setor")
+		public String historicoSetor() {
+
+			return "convertido/historico-convertido-setor";
+		}	
+		
+		// localizar histórico de convertido por area
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+		@GetMapping("/datatables/server/historico-setor")
+		public ResponseEntity<?> historicoConvertidoPorEmailSetor(HttpServletRequest request,
+				@AuthenticationPrincipal User user) {
+		
+			if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ESPECIALISTA.getDesc()))) {
+				
+				return ResponseEntity.ok(service.bucarHistoricoConvertidoPorSetorEData(request));
+			}
+			return ResponseEntity.badRequest().build();
+		}
+	
+	
+	// abrir histórico de convertidos por área
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+			@GetMapping("/historico/convertido-setor-area")
+			public String historicoSetorArea() {
+
+				return "convertido/historico-convertido-setor-area";
+			}	
+			
+			// localizar histórico de convertido por area
+		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+			@GetMapping("/datatables/server/historico-setor-area")
+			public ResponseEntity<?> historicoConvertidoPorEmailSetorArea(HttpServletRequest request,
+					@AuthenticationPrincipal User user) {
+			
+				if (user.getAuthorities().contains(new SimpleGrantedAuthority(PerfilTipo.ESPECIALISTA.getDesc()))) {
+					
+					return ResponseEntity.ok(service.bucarHistoricoConvertidoPorSetorAreaSemana(request));
+				}
+				return ResponseEntity.badRequest().build();
+			}
+		
+//	*************************************************
+	
 	// localizar convertido pelo id e envia-lo para a pagina de cadastro
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 		@GetMapping("/editar/convertido/{id}")
 		public String preEditarcConvertidoPessoa(@PathVariable("id") Long id, ModelMap model,
 				@AuthenticationPrincipal User user) {
@@ -106,7 +180,7 @@ public class ConvertidoController {
 			return "convertido/convertido";
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 		@PostMapping("/editar")
 		public String editarConvertido(Convertido convertido, RedirectAttributes attr, @AuthenticationPrincipal User user) {
 			System.out.println("Já nesse caso, o id desse método é: "+convertido.getId());
@@ -124,7 +198,7 @@ public class ConvertidoController {
 			return "redirect:/convertidos/historico/convertido";
 		}
 
-		@PreAuthorize("hasAnyAuthority('PESSOA', 'CAMPANHA','ASSISTENTE')")
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
 		@GetMapping("/excluir/convertido/{id}")
 		public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
 			service.remover(id);
@@ -133,4 +207,9 @@ public class ConvertidoController {
 		}
 
 
+	@PreAuthorize("hasAnyAuthority('PESSOA', 'DISCIPULADO','ESPECIALISTA', 'CAMPANHA','ASSISTENTE')")
+		@ModelAttribute("origens_conversao")
+		public List<OrigemConversao>listarOrigems(){
+			return origemConversaoService.buscarTodosOrdenados();
+		}
 }

@@ -1,5 +1,6 @@
 package com.jofre.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.jofre.domain.Convertido;
 import com.jofre.repository.projection.HistoricoConvertido;
+import com.jofre.repository.projection.HistoricoConvertidoArea;
+import com.jofre.repository.projection.HistoricoConvertidoSetor;
+import com.jofre.repository.projection.HistoricoConvertidoSetorArea;
 
 public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 
@@ -25,6 +29,7 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 
 	@Query("select c.id as id, "
 			+ "c.nome as nome,"
+			+ "c.origemConversao as origemConversao,"
 			+ "c.telefone as telefone, "
 			+ "c.dataConversao as dataConversao,"
 			+ "c.endereco as endereco,"
@@ -40,6 +45,7 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 	
 	@Query("select c.id as id, "
 			+ "c.nome as nome,"
+			+ "c.origemConversao as origemConversao,"
 			+ "c.telefone as telefone, "
 			+ "c.dataConversao as dataConversao,"
 			+ "c.endereco as endereco,"
@@ -86,6 +92,18 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 			+ "and (c.inativo =  false or c.inativo = null) ")
 	Page<HistoricoConvertido> findHistoricoConvertidoPessoaCongregacao(Long congregacao, Long pessoa,
 			Pageable pageable);
+	
+	
+	@Query("select "
+			+ "c.pessoa.congregacao.nome as nome, "
+			+ "count(c.id) as quantidade "
+			+ "from Convertido c "
+			+ "where c.pessoa.area = :area "
+			+ "and DATE_PART('week', c.dataConversao +1) =  DATE_PART('week', now()) " //semana
+			+ "and DATE_PART('year', c.dataConversao +1) =  DATE_PART('year', now()) " // ano
+			+ "and (c.matriculado = false or c.matriculado = null) "
+			+ "group by 1 ")
+	Page<HistoricoConvertidoArea> findHistoricoConvertidoAreaData(Integer area, Pageable pageable);
 
 	
 	@Query("select c.id as id, "
@@ -106,7 +124,32 @@ public interface ConvertidoRepository extends JpaRepository<Convertido, Long>{
 			+ "and matriculado = true "
 			+ "and inativo = false "
 			+ "and (concluinte = null or concluinte = false)")
-	List<Convertido> findAllConvertidoPorCongregacao(Long congregacao);
+	List<Convertido> findAllConvertidoMatriculadoPorCongregacao(Long congregacao);
+
+	
+	@Query("select "
+			+ "c.pessoa.congregacao.nome as nome, "
+			+ "c.pessoa.congregacao.area as area, "
+			+ "count(c.id) as quantidade "
+			+ "from Convertido c "
+			+ "where DATE_PART('week', c.dataConversao +1) =  DATE_PART('week', now()) " //semana
+			+ "and DATE_PART('year', c.dataConversao +1) =  DATE_PART('year', now()) " // ano
+			+ "and (c.matriculado = false or c.matriculado = null) "
+			+ "group by c.pessoa.congregacao.nome, c.pessoa.congregacao.area")
+	Page<HistoricoConvertidoSetor> findHistoricoConvertidoSetorData(Pageable pageable);
 
 		
+	@Query("select "
+			+ "c.pessoa.congregacao.area as area, "
+			+ "count(c.id) as quantidade "
+			+ "from Convertido c "
+			+ "where DATE_PART('week', c.dataConversao +1) =  DATE_PART('week', now()) " //semana
+			+ "and DATE_PART('year', c.dataConversao +1) =  DATE_PART('year', now()) " // ano
+			+ "and (c.matriculado = false or c.matriculado = null) "
+			+ "group by c.pessoa.congregacao.area")
+	Page<HistoricoConvertidoSetorArea> findHistoricoConvertidoSetorAreaSemana(Pageable pageable);
+
+	@Query("select c from Convertido c where c.convertido = true and c.dataConversao >= :data")
+	List<Convertido> findByAllPorData(LocalDate data);
+
 }

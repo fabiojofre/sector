@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
 <head>
-<meta charset="UTF-8" />
+	<meta charset="UTF-8" />
 </head>
+
 <body>
 
 	<section class="layout-content" layout:fragment="corpo">
@@ -11,8 +12,7 @@
 		<main role="main">
 
 			<section class="jumbotron text-center">
-				<img class="d-block mx-auto mb-4" th:src="@{/image/ieadpe.png}"
-					width="72" height="72">
+				<img class="d-block mx-auto mb-4" th:src="@{/image/ieadpe.png}" width="72" height="72">
 				<div class="container">
 					<h1 class="jumbotron-heading">Sector - Sistema de Gestão</h1>
 					<p class="lead text-muted">Cadastro de Origem Conversao</p>
@@ -26,57 +26,65 @@
 						<div class="col-md-8">
 
 							<div th:replace="~{fragments/alert}"></div>
-							<form th:action="@{/origens_conversao/salvar}"
-								th:object="${origem_conversao}" 
-								method="POST" class="was-validated">
+							<form th:action="@{/origens_conversao/salvar}" th:object="${origemConversao}" method="POST"
+								class="was-validated">
+								<div class="form-group row">
+
+								</div>
 
 								<div class="form-group row">
 									<div class="form-group col-md-6">
 										<label for="nome" class="form-group">Nome Origem</label>
-										<input type="text" class="form-control" th:field="*{nome}"
-											id="nome" placeholder="Ex: Evangelização" required />
+										<input type="text" class="form-control" th:field="*{nome}" id="nome"
+											placeholder="Ex: Evangelização" required />
 										<div class="invalid-feedback">Nome é requerido.</div>
 									</div>
-								
-								<br>
-							</div>		
-						<input type="hidden" th:field="*{id}" />
+									</div>
+									<div>
+										<div class="form-group col-md-6">
+										<div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" th:field="*{inativo}"
+												id="inativo" th:if="${inativo == true ? 'checked=checked' : ''}" />
+											<label class="custom-control-label" for="inativo">Inativo</label>
+										</div>
+									</div>
+									</div>
+									<input type="hidden" th:field="*{id}" />
 
-						<div class="form-group row">
-							<div class="col-sm-10">
-								<button type="submit" class="btn btn-primary"
-									data-toggle="tooltip" data-placement="right" title="Salvar">
-									<i class="fas fa-save"></i>
-								</button>
-							</div>
+									<div class="form-group row">
+										<div class="col-sm-10">
+											<button type="submit" class="btn btn-primary" data-toggle="tooltip"
+												data-placement="right" title="Salvar">
+												<i class="fas fa-save"></i>
+											</button>
+										</div>
+									</div>
+							</form>
+
+							<hr />
+
+							<h2>Lista de Origens</h2>
+
+							<table id="table-origem-conversao"
+								class="table table-sm table-striped table-bordered nowrap" style="width: 100%">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Origem</th>
+										<th scope="col">Editar</th>
+										<th scope="col">Excluir</th>
+									</tr>
+								</thead>
+							</table>
 						</div>
-						</form>
-
-						<hr />
-
-						<h2>Lista de Origens</h2>
-
-						<table id="table-origem-conversao"
-							class="table table-sm table-striped table-bordered nowrap"
-							style="width: 100%">
-							<thead class="thead-dark">
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Origem</th>
-									<th scope="col">Editar</th>
-									<th scope="col">Excluir</th>
-								</tr>
-							</thead>
-						</table>
 					</div>
 				</div>
-			</div>
 			</div>
 
 		</main>
 	</section>
-	<script th:src="@{/js/origem_conversao.js?(v=${version})}"
-		th:fragment="js"></script>
+	<script th:src="@{/js/origem_conversao.js?(v=${version})}" th:fragment="js"></script>
 	<script th:inline="javascript" th:fragment="inlinescript"></script>
 </body>
+
 </html>

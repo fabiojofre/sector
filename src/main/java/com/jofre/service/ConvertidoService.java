@@ -15,6 +15,9 @@ import com.jofre.domain.Convertido;
 import com.jofre.exception.AcessoNegadoException;
 import com.jofre.repository.ConvertidoRepository;
 import com.jofre.repository.projection.HistoricoConvertido;
+import com.jofre.repository.projection.HistoricoConvertidoArea;
+import com.jofre.repository.projection.HistoricoConvertidoSetor;
+import com.jofre.repository.projection.HistoricoConvertidoSetorArea;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -129,6 +132,19 @@ public class ConvertidoService {
 
 		return datatables.getResponse(page);
 	}
+	
+	public Map<String, Object> bucarHistoricoConvertidoPorAreaEData(Integer area, HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOCONGREGACAO);
+		Page<HistoricoConvertidoArea> page = repository.findHistoricoConvertidoAreaData(area, datatables.getPageable());
+
+		return datatables.getResponse(page);
+	}
+	
+//	public List<HistoricoConvertidoArea> bucarHistoricoConvertidoPorAreaEData(Integer area, LocalDate data) {
+//
+//		return repository.findHistoricoConvertidoAreaData(area,data);
+//	}
 
 	public Map<String, Object> bucarHistoricoConcluidoPorCongregacao(Long congregacao, HttpServletRequest request) {
 		datatables.setRequest(request);
@@ -140,7 +156,28 @@ public class ConvertidoService {
 
 	public List<Convertido> buscarTodosConvertidosPorCongregacao(Long congregacao) {
 	
-		return repository.findAllConvertidoPorCongregacao(congregacao);
+		return repository.findAllConvertidoMatriculadoPorCongregacao(congregacao);
+	}
+
+	public Map<String, Object> bucarHistoricoConvertidoPorSetorEData( HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOCONGREGACAOAREA);
+		Page<HistoricoConvertidoSetor> page = repository.findHistoricoConvertidoSetorData(datatables.getPageable());
+
+		return datatables.getResponse(page);
+	}
+
+	public Map<String, Object> bucarHistoricoConvertidoPorSetorAreaSemana( HttpServletRequest request) {
+		datatables.setRequest(request);
+		datatables.setColunas(DatatablesColunas.CONVERTIDOAREA);
+		Page<HistoricoConvertidoSetorArea> page = repository.findHistoricoConvertidoSetorAreaSemana(datatables.getPageable());
+
+		return datatables.getResponse(page);
+	}
+
+	public List<Convertido> findAllByDate(LocalDate data) {
+		// TODO Auto-generated method stub
+		return repository.findByAllPorData(data);
 	}
 
 

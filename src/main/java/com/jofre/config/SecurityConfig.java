@@ -44,6 +44,9 @@ public class SecurityConfig {
 			.requestMatchers("/u/novo/cadastro", "/u/cadastro/realizado", "/u/cadastro/pessoa/salvar").permitAll()
 			.requestMatchers("/u/confirmacao/cadastro").permitAll()
 			.requestMatchers("/u/p/**").permitAll()
+			.requestMatchers("/conversoes/**").permitAll()
+			.requestMatchers("/obreiros/**").permitAll()
+			.requestMatchers("/trabalhadores/**").permitAll()
 			
 			// acessos privados admin
 			.requestMatchers("/u/editar/senha", "/u/confirmar/senha").hasAnyAuthority(PESSOA, ESPECIALISTA, DISCIPULADO, CAMPANHA, ASSISTENTE)
@@ -56,8 +59,8 @@ public class SecurityConfig {
 //			.requestMatchers("/agendamentos/**").hasAuthority(ESPECIALISTA)
 
 			// acessos privados pessoas
-			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO,ASSISTENTE)
-			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO,CAMPANHA, ASSISTENTE)
+			.requestMatchers("/pessoas/**").hasAnyAuthority(PESSOA,DISCIPULADO,ASSISTENTE,ESPECIALISTA)
+			.requestMatchers("/convertidos/**").hasAnyAuthority(PESSOA, DISCIPULADO,CAMPANHA, ASSISTENTE, ESPECIALISTA)
 			
 			.requestMatchers("/discipulados/**").hasAnyAuthority(DISCIPULADO,CAMPANHA,ASSISTENTE)
 			
@@ -106,6 +109,7 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
+//	encriptar senha
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

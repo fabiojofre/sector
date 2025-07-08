@@ -16,7 +16,7 @@ public class DatatablesColunas {
 	//novo
 	public static final String[] PROFISSOES = {"id","nome"};
 	//novo
-	public static final String[] CONVERTIDOS = {"id","nome","telefone","dataConversao","endereco","congregacao.nome","pessoa.nome","pessoa.telefone","dataNascimento","dataConclusao","aulas[]"};
+	public static final String[] CONVERTIDOS = {"id","nome","origemConversao","telefone","dataConversao","endereco","congregacao.nome","pessoa.nome","pessoa.telefone","dataNascimento","dataConclusao","aulas[]"};
 	
 	public static final String[] ORIGENS = {"id", "nome"};
 	
@@ -37,4 +37,9 @@ public class DatatablesColunas {
 	public static final String[] PRODUTOS = {"id", "descricao", "grupo", "precoCompra","estoque","reservado"};
 	
 	public static final String[] GRUPOS = {"id", "descricao"};
+	
+	// tabelas não reais no banco de dados para relatórios
+	public static final String[] CONVERTIDOCONGREGACAO = {"nome","quantidade"};
+	public static final String[] CONVERTIDOCONGREGACAOAREA = {"nome","area","quantidade"};
+	public static final String[] CONVERTIDOAREA = {"area","quantidade"};
 }

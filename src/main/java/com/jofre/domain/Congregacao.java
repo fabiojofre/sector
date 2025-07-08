@@ -24,6 +24,7 @@ public class Congregacao extends AbstractEntity {
 	@Column(name = "responsavel")
 	private String responsavel;
 	
+	@JsonIgnore
 	@Column(name = "e_polo")
 	private Boolean ePolo;
 	

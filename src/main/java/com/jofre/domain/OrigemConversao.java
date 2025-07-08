@@ -19,11 +19,11 @@ public class OrigemConversao extends AbstractEntity {
 	private String nome;
 	
 	@Column(name = "inativo")
-	private String inativo;
+	private Boolean inativo;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "origem_conversao")
-	private List<Convertido> convertidos;
+	@OneToMany(mappedBy = "origemConversao")
+	private List<Convertido> origensConversao;
 	
 		
 	public String getNome() {
@@ -37,23 +37,28 @@ public class OrigemConversao extends AbstractEntity {
 	
 	
 
-	public String getInativo() {
+
+	public Boolean getInativo() {
 		return inativo;
 	}
 
 
-	public void setInativo(String inativo) {
+	public void setInativo(Boolean inativo) {
 		this.inativo = inativo;
 	}
 
 
-	public List<Convertido> getConvertidos() {
-		return convertidos;
+	public List<Convertido> getOrigensConversao() {
+		return origensConversao;
 	}
 
-	public void setConvertidos(List<Convertido> convertidos) {
-		this.convertidos = convertidos;
+
+	public void setOrigensConversao(List<Convertido> origensConversao) {
+		this.origensConversao = origensConversao;
 	}
+
+
+
 
 	
 		

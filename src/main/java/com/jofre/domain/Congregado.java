@@ -33,7 +33,7 @@ public class Congregado extends AbstractEntity{
 	@Column(name = "telefone")
 	private Long telefone;
 	
-	
+	@JsonIgnore
 	@CPF(message = "CPF inválido.")
 	@Column(name = "cpf",length = 15 ,unique = true,  nullable = false)
 	private String cpf;
@@ -56,38 +56,47 @@ public class Congregado extends AbstractEntity{
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDate dataCadastro;
 	
+	@JsonIgnore
 	@Column(name = "data_alteracao")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDate dataAlteracao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_origem")
 	private Origem origem;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_limitacao")
 	private Limitacao limitacao;
 	
+	@JsonIgnore
 	@Column(name = "data_mudanca")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataMudanca;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_grau")
 	private Grau grau;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_estadocivil")
 	private EstadoCivil estadocivil;
 	
+	@JsonIgnore
 	@OneToOne()
 	@JoinColumn(name = "id_usuariocadastro")
 	private Usuario usuariocadastro;
 	
+	@JsonIgnore
 	@OneToOne()
 	@JoinColumn(name = "id_usuarioalteracao")
 	private Usuario usuarioalteracao;

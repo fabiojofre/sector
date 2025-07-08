@@ -15,7 +15,8 @@ public class Pessoa extends AbstractEntity {
 
 	@Column(name = "nome", unique = true, nullable = false)
 	private String nome;
-
+	
+	@JsonIgnore
 	@Column(name = "data_nascimento", nullable = false)
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dtNascimento;
@@ -35,10 +36,12 @@ public class Pessoa extends AbstractEntity {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Convite> convite;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;

@@ -1,0 +1,5 @@
+INSERT INTO public.cargo_ec( nome, sigla)VALUES ( 'Pastor', 'Pr. ');
+INSERT INTO public.cargo_ec( nome, sigla)VALUES ( 'Evangelista', 'Ev. ');
+INSERT INTO public.cargo_ec( nome, sigla)VALUES ( 'Presbítero', 'Pb. ');
+INSERT INTO public.cargo_ec( nome, sigla)VALUES ( 'Diácono', 'Dc. ');
+INSERT INTO public.cargo_ec( nome, sigla)VALUES ( 'Auxiliar', 'Aux. ');

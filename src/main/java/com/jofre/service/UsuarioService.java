@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +24,9 @@ import com.jofre.domain.PerfilTipo;
 import com.jofre.domain.Usuario;
 import com.jofre.exception.AcessoNegadoException;
 import com.jofre.repository.UsuarioRepository;
+
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UsuarioService implements UserDetailsService {

@@ -19,6 +19,7 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "senha", nullable = false)
 	private String senha;
 	
+	
 	@ManyToMany
 	@JoinTable(
 		name = "usuarios_tem_perfis", 

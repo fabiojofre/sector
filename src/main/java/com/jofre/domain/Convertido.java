@@ -55,35 +55,42 @@ public class Convertido extends AbstractEntity{
 	@Column(name="batismo")
 	private Boolean batismo;
 	
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_congregacao")
 	private Congregacao congregacao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_estadocivil")
 	private EstadoCivil estadocivil;
 	
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "id_origem_conversao")
 	private OrigemConversao origemConversao;
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
 	
+	@JsonIgnore
 	@Column(name = "data_nascimento")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
 	
+	@JsonIgnore
 	@Column(name = "data_conversao")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataConversao;
 	
+	@JsonIgnore
 	@Column(name = "data_conclusao")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataConclusao;
 	
+	@JsonIgnore
 	@Column(name = "data_matriculado")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataMatriculado;

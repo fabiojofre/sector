@@ -41,17 +41,15 @@
 									<div class="invalid-feedback">Nome é requerido.</div>
 								</div>
 							</div>
-								<div class="form-row">
-											<div class="form-group col-md-6">
-												<label for="origem_conversao">Origem Conversao</label>
-												<select id="origem_conversao" class="form-control" th:field="*{origem_conversao}" required >
+											<div class="mb-3">
+												<label for="origemConversao">Origem Conversao</label>
+												<select id="origemConversao" class="form-control" th:field="*{origemConversao}" required >
 													<option value="">Selecione</option>
 													<option th:each="o : ${origens_conversao}" th:value="${o.id}"
 														th:text="${o.nome}"></option>
 												</select>
 												<div class="invalid-feedback">A origem é obrigatóra.</div>
 											</div>
-										</div>
 							<div class="mb-3">
 								<label for="nome">Data de Conversão</label>
 								<div class="input-group">

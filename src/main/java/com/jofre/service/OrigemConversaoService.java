@@ -64,5 +64,10 @@ public class OrigemConversaoService {
 	public List<OrigemConversao> buscarTodos() {
 		return repository.findAll();
 	} 
-		
+	
+	@Transactional(readOnly = true)
+	public List<OrigemConversao> buscarTodosOrdenados() {
+		return repository.findAllOrderBy();
+	} 
+	 
 }

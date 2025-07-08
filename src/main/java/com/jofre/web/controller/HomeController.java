@@ -24,32 +24,32 @@ public class HomeController {
 
 	@Autowired
 	UsuarioService service;
-	
+
 	@Autowired
 	PessoaService pessoaService;
-	
-	
-	
+
 	// abrir pagina home
-	@GetMapping({"/", "/home"})
+	@GetMapping({ "/", "/home" })
 	public String home(HttpServletResponse response, @AuthenticationPrincipal User user) {
-	
-		try {
-		Usuario us = service.buscarPorEmail(user.getUsername());
-		
-		Pessoa pessoa = pessoaService.buscarPorUsuarioEmailValido(user.getUsername());
-		
-		
-		if((!us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod()))) &&
-	    		!us.getPerfis().contains(new Perfil(PerfilTipo.ESPECIALISTA.getCod()))&&(pessoa == null)) {
-			return "redirect:/pessoas/dados";
-		}
-		}catch (Exception e) {
-			System.out.println("Abrindo home...");
+
+		if (user != null) {
+			try {
+				Usuario us = new Usuario();
+				us = service.buscarPorEmail(user.getUsername());
+
+				Pessoa pessoa = new Pessoa();
+				pessoa = pessoaService.buscarPorUsuarioEmailValido(user.getUsername());
+
+				if ((!us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod())))
+						&& !us.getPerfis().contains(new Perfil(PerfilTipo.ESPECIALISTA.getCod())) && (pessoa == null)) {
+					return "redirect:/pessoas/dados";
+				}
+			} catch (Exception e) {
+			}
 		}
 		return "home";
-	}	
-	
+	}
+
 //
 //	// abrir pagina home
 //	@GetMapping({"/", "/home"})
@@ -58,16 +58,15 @@ public class HomeController {
 //		return "home";
 //	}	
 
-
 	// abrir pagina login
-	@GetMapping({"/login"})
+	@GetMapping({ "/login" })
 	public String login() {
-		
+
 		return "login";
-	}	
-	
+	}
+
 	// login invalido
-	@GetMapping({"/login-error"})
+	@GetMapping({ "/login-error" })
 	public String loginError(ModelMap model, HttpServletRequest resp) {
 		HttpSession session = resp.getSession();
 		String lastException = String.valueOf(session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION"));
@@ -83,23 +82,25 @@ public class HomeController {
 		model.addAttribute("texto", "Login ou senha incorretos, tente novamente.");
 		model.addAttribute("subtexto", "Acesso permitido apenas para cadastros já ativados.");
 		return "login";
-	}	
-	
+	}
+
 	@GetMapping("/expired")
 	public String sessaoExpirada(ModelMap model) {
 		model.addAttribute("alerta", "erro");
 		model.addAttribute("titulo", "Acesso recusado!");
 		model.addAttribute("texto", "Sua sessão expirou.");
 		model.addAttribute("subtexto", "Você logou em outro dispositivo");
+		model.clear();
+		model.clone();
 		return "login";
-	}	
-	
+	}
+
 	// acesso negado
-	@GetMapping({"/acesso-negado"})
+	@GetMapping({ "/acesso-negado" })
 	public String acessoNegado(ModelMap model, HttpServletResponse resp) {
 		model.addAttribute("status", resp.getStatus());
 		model.addAttribute("error", "Acesso Negado");
 		model.addAttribute("message", "Você não tem permissão para acesso a esta área ou ação.");
 		return "error";
-	}	
+	}
 }
